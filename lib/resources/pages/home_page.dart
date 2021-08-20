@@ -1,10 +1,12 @@
+
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_app/app/controllers/home_controller.dart';
 import 'package:flutter_app/resources/widgets/safearea_widget.dart';
-import 'package:nylo_framework/helpers/helper.dart';
 import 'package:nylo_support/helpers/helper.dart';
 import 'package:nylo_support/widgets/ny_state.dart';
 import 'package:nylo_support/widgets/ny_stateful_widget.dart';
+import 'package:yaml/yaml.dart';
 
 class MyHomePage extends NyStatefulWidget {
   final HomeController controller = HomeController();
@@ -16,12 +18,25 @@ class MyHomePage extends NyStatefulWidget {
   _MyHomePageState createState() => _MyHomePageState();
 }
 
+
 class _MyHomePageState extends NyState<MyHomePage> {
+
+  String version = 'no version';
+
+  _MyHomePageState() {
+    rootBundle.loadString('pubspec.yaml').then((String yaml) {
+      setState(() {
+        version = loadYaml(yaml)['version'];
+      });
+    });
+  }
+
   @override
   widgetDidLoad() async {}
 
   @override
   Widget build(BuildContext context) {
+
     return Scaffold(
       appBar: AppBar(
         title: Text(widget.title),
@@ -43,13 +58,8 @@ class _MyHomePageState extends NyState<MyHomePage> {
                 style: Theme.of(context).textTheme.headline2,
               ),
               Text(
-                "Micro-framework for Flutter",
+                getEnv("SHORT_DESCRIPTION"),
                 style: Theme.of(context).accentTextTheme.subtitle1,
-                textAlign: TextAlign.center,
-              ),
-              Text(
-                "Build something amazing 💡️",
-                style: Theme.of(context).textTheme.bodyText2,
                 textAlign: TextAlign.center,
               ),
               Column(
@@ -106,7 +116,7 @@ class _MyHomePageState extends NyState<MyHomePage> {
                     ),
                   ),
                   Text(
-                    nyloVersion,
+                    version,
                     style: Theme.of(context)
                         .textTheme
                         .bodyText2!

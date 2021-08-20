@@ -6,7 +6,6 @@ class HomeController extends Controller {
 
   @override
   construct(BuildContext context) {
-
   }
 
   onTapDocumentation() {
