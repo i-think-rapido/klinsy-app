@@ -1,5 +1,7 @@
 {
   "active": "active",
   "archive": "archive",
+  "edit task": "edit task",
+  "new task": "new task",
   "todos": "todos"
 }

@@ -33,6 +33,9 @@ class _MyHomePageState extends NyState<MyHomePage> {
 
   @override
   Widget build(BuildContext context) {
+
+    widget.controller.construct(context);
+
     return Scaffold(
       appBar: AppBar(
         title: Text(widget.title),

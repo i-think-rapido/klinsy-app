@@ -1,4 +1,5 @@
 import 'package:flutter/widgets.dart';
+import 'package:nylo_support/router/router.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'controller.dart';
 
@@ -9,18 +10,18 @@ class HomeController extends Controller {
   }
 
   onTapShowTodos() {
-    print('onTapShowTodos');
+    Navigator.pushNamed(context!, '/todos');
   }
 
   onTapShowActive() {
-    print('onTapShowActive');
+    Navigator.pushNamed(context!, '/active');
   }
 
   onTapShowArchive() {
-    print('onTapShowArchive');
+    Navigator.pushNamed(context!, '/archive');
   }
 
   onTapNewTask() {
-    print('onTapNewTask');
+    Navigator.pushNamed(context!, '/new');
   }
 }
