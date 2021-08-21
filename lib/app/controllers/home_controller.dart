@@ -8,15 +8,19 @@ class HomeController extends Controller {
   construct(BuildContext context) {
   }
 
-  onTapDocumentation() {
-    launch("https://nylo.dev/docs");
+  onTapShowTodos() {
+    print('onTapShowTodos');
   }
 
-  onTapGithub() {
-    launch("https://github.com/nylo-core/nylo");
+  onTapShowActive() {
+    print('onTapShowActive');
   }
 
-  onTapChangeLog() {
-    launch("https://github.com/nylo-core/framework/blob/0.x/CHANGELOG.md");
+  onTapShowArchive() {
+    print('onTapShowArchive');
+  }
+
+  onTapNewTask() {
+    print('onTapNewTask');
   }
 }

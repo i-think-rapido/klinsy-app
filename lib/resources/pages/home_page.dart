@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_app/app/controllers/home_controller.dart';
@@ -18,9 +17,7 @@ class MyHomePage extends NyStatefulWidget {
   _MyHomePageState createState() => _MyHomePageState();
 }
 
-
 class _MyHomePageState extends NyState<MyHomePage> {
-
   String version = 'no version';
 
   _MyHomePageState() {
@@ -36,7 +33,6 @@ class _MyHomePageState extends NyState<MyHomePage> {
 
   @override
   Widget build(BuildContext context) {
-
     return Scaffold(
       appBar: AppBar(
         title: Text(widget.title),
@@ -48,19 +44,15 @@ class _MyHomePageState extends NyState<MyHomePage> {
             crossAxisAlignment: CrossAxisAlignment.center,
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
-              Image.asset(
-                getImageAsset("nylo_logo.png"),
-                height: 100,
-                width: 100,
-              ),
-              Text(
-                getEnv("APP_NAME"),
-                style: Theme.of(context).textTheme.headline2,
-              ),
               Text(
                 getEnv("SHORT_DESCRIPTION"),
                 style: Theme.of(context).accentTextTheme.subtitle1,
                 textAlign: TextAlign.center,
+              ),
+              Image.asset(
+                getImageAsset("nylo_logo.png"),
+                height: 100,
+                width: 100,
               ),
               Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
@@ -87,30 +79,47 @@ class _MyHomePageState extends NyState<MyHomePage> {
                       children: [
                         MaterialButton(
                           child: Text(
-                            trans(context, "documentation")!.capitalize(),
+                            trans(context, "todos")!.capitalize(),
                             style: Theme.of(context).textTheme.bodyText1,
                           ),
-                          onPressed: widget.controller.onTapDocumentation,
+                          onPressed: widget.controller.onTapShowTodos,
+                        ),
+                        Divider(
+                          height: 0,
+                        ),
+                        Container(
+                          margin: EdgeInsets.symmetric(vertical: 15),
+                          decoration: BoxDecoration(
+                            color: Theme.of(context).accentColor,
+                            shape: BoxShape.circle,
+                          ),
+                          width: 40,
+                          child: IconButton(
+                              onPressed: widget.controller.onTapNewTask,
+                              icon: Icon(
+                                Icons.add,
+                                color: Theme.of(context).buttonColor,
+                              )),
                         ),
                         Divider(
                           height: 0,
                         ),
                         MaterialButton(
                           child: Text(
-                            "GitHub",
+                            trans(context, "active")!.capitalize(),
                             style: Theme.of(context).textTheme.bodyText1,
                           ),
-                          onPressed: widget.controller.onTapGithub,
+                          onPressed: widget.controller.onTapShowActive,
                         ),
                         Divider(
                           height: 0,
                         ),
                         MaterialButton(
                           child: Text(
-                            trans(context, "changelog")!.capitalize(),
+                            trans(context, "archive")!.capitalize(),
                             style: Theme.of(context).textTheme.bodyText1,
                           ),
-                          onPressed: widget.controller.onTapChangeLog,
+                          onPressed: widget.controller.onTapShowArchive,
                         ),
                       ],
                     ),

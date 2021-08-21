@@ -1,4 +1,5 @@
 {
-  "documentation": "documentation",
-  "changelog": "changelog"
+  "active": "active",
+  "archive": "archive",
+  "todos": "todos"
 }
