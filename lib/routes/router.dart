@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_app/app/services/task_service.dart';
 import 'package:flutter_app/resources/pages/home_page.dart';
 import 'package:flutter_app/resources/pages/sub_page.dart';
+import 'package:flutter_app/resources/widgets/active_widget.dart';
+import 'package:flutter_app/resources/widgets/archived_widget.dart';
+import 'package:flutter_app/resources/widgets/todos_widget.dart';
 import 'package:nylo_support/helpers/helper.dart';
 import 'package:nylo_support/router/router.dart';
 import 'package:page_transition/page_transition.dart';
@@ -28,7 +32,7 @@ buildRouter() => nyCreateRoutes((router) {
           "/todos",
           (context) => SubPage(
                 title: trans(context, "todos")!.capitalize(),
-                child: Text('asdfasdf'),
+                child: TodosWidget(),
               ),
           transition: PageTransitionType.fade);
 
@@ -36,7 +40,7 @@ buildRouter() => nyCreateRoutes((router) {
           "/active",
           (context) => SubPage(
                 title: trans(context, "active")!.capitalize(),
-                child: Text('asdfasdf'),
+            child: ActiveWidget(),
               ),
           transition: PageTransitionType.fade);
 
@@ -44,7 +48,7 @@ buildRouter() => nyCreateRoutes((router) {
           "/archive",
           (context) => SubPage(
                 title: trans(context, "archive")!.capitalize(),
-                child: Text('asdfasdf'),
+              child: ArchivedWidget(),
               ),
           transition: PageTransitionType.fade);
 

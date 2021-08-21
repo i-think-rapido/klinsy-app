@@ -2,9 +2,9 @@
 import 'package:flutter/material.dart';
 import 'package:json_annotation/json_annotation.dart';
 
-import 'task.dart';
+import 'task_model.dart';
 
-part 'reminder.g.dart';
+part 'reminder_model.g.dart';
 
 typedef JsonMap = Map<String, dynamic>;
 

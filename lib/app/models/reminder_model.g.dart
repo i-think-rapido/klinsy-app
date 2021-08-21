@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'reminder.dart';
+part of 'reminder_model.dart';
 
 // **************************************************************************
 // JsonSerializableGenerator

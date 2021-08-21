@@ -1,12 +1,14 @@
 import 'dart:async';
 import 'dart:convert';
 
-import 'package:flutter_app/app/models/task.dart';
+import 'package:flutter_app/app/models/task_model.dart';
 import 'package:path/path.dart';
 import 'package:sqflite/sqflite.dart';
 
-import '../models/reminder.dart';
-import '../models/task.dart';
+import '../models/reminder_model.dart';
+import '../models/task_model.dart';
+
+typedef TasksFound = Iterable<Task>;
 
 class TaskService {
 
@@ -25,7 +27,7 @@ class TaskService {
 
   Future<void> connect() async {
     if (_db == null) {
-      final path = join(await getDatabasesPath(), _filename!);
+      final path = join(await getDatabasesPath(), _filename);
       _db = await openDatabase(path, version: 1, onOpen: (db) {}, onCreate:
       // create Database
           (Database db, int version) async {
@@ -87,7 +89,7 @@ class TaskService {
     }
   }
 
-  Future<Iterable<Task>> findAll() async {
+  Future<TasksFound> findAll() async {
     await connect();
     List<Map<String, Object?>> maps = await _db!.query(_tblTask, columns: [_colId, _colContent]);
 
@@ -106,15 +108,15 @@ class TaskService {
     return out;
   }
 
-  Future<Iterable<Task>> findAllArchived() async => (await findAll())
+  Future<TasksFound> findAllArchived() async => (await findAll())
       .where((task) => task.isArchived == true)
   ;
 
-  Future<Iterable<Task>> findAllActive() async => (await findAll())
+  Future<TasksFound> findAllActive() async => (await findAll())
       .where((task) => task.isArchived == false)
   ;
 
-  Future<Iterable<Task>> findAllTodos() async => (await findAllActive())
+  Future<TasksFound> findAllTodos() async => (await findAllActive())
       .where((task) => task.alert.isBefore(DateTime.now()))
   ;
 

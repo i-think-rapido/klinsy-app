@@ -1,11 +1,11 @@
 
 import 'package:flutter/material.dart';
 import 'package:json_annotation/json_annotation.dart';
-import './reminder.dart';
+import './reminder_model.dart';
 
 import 'package:uuid/uuid.dart';
 
-part 'task.g.dart';
+part 'task_model.g.dart';
 
 @JsonSerializable()
 class TaskJsonCompatible {
