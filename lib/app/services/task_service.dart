@@ -10,20 +10,22 @@ import '../models/task.dart';
 
 class TaskService {
 
-  static const String _default_filename = 'tasks.db';
-
   final String _tblTask = 'task';
   final String _colId = 'id';
   final String _colContent = 'content';
 
-  final String? filename;
+  final String _filename = 'tasks.db';
   Database? _db;
 
-  TaskService({ this.filename = _default_filename });
+  TaskService._privateConstructor();
+  static final TaskService _instance = TaskService._privateConstructor();
+  factory TaskService() {
+    return _instance;
+  }
 
   Future<void> connect() async {
     if (_db == null) {
-      final path = join(await getDatabasesPath(), filename!);
+      final path = join(await getDatabasesPath(), _filename!);
       _db = await openDatabase(path, version: 1, onOpen: (db) {}, onCreate:
       // create Database
           (Database db, int version) async {
