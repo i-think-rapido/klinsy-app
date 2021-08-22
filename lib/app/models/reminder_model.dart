@@ -30,15 +30,15 @@ abstract class IReminder {
 
   const IReminder();
 
-  void setNewAlarm(Task task);
+  void setNewAlarm(ITask task);
 
-  DateTime getTodayAlertDateTime(Task task) {
+  DateTime getTodayAlertDateTime(ITask task) {
     var now = DateTime.now();
     var date = DateTime.utc(now.year, now.month, now.day);//, task.timeOfDay.hour, task.timeOfDay.minute);
     return date;
   }
 
-  void addDuration(Task task, Duration duration) {
+  void addDuration(ITask task, Duration duration) {
     var alert = getTodayAlertDateTime(task);
     alert = alert.add(duration);
     task.alert = alert;
@@ -62,6 +62,8 @@ abstract class IReminder {
   factory IReminder.fromJson(JsonMap json) => _IReminder.fromJson(json);
   JsonMap toJson();
 
+  IReminder clone();
+
 }
 @JsonSerializable()
 class _IReminder extends IReminder {
@@ -72,13 +74,16 @@ class _IReminder extends IReminder {
   _IReminder();
 
   @override
-  void setNewAlarm(Task task) {
+  void setNewAlarm(ITask task) {
     throw Exception('unreachable');
   }
 
   factory _IReminder.fromJson(JsonMap json) => _$_IReminderFromJson(json);
   @override
   JsonMap toJson() => _$_IReminderToJson(this);
+
+  @override
+  IReminder clone() => _IReminder();
 }
 
 @JsonSerializable()
@@ -89,7 +94,7 @@ class ReminderProxy extends IReminder {
 
   final IReminder? _reminder;
 
-  void setNewAlarm(Task task) {
+  void setNewAlarm(ITask task) {
     //if (_reminder == null) return;
     _reminder!.setNewAlarm(task);
   }
@@ -99,6 +104,9 @@ class ReminderProxy extends IReminder {
   factory ReminderProxy.fromJson(JsonMap json) => _$ReminderProxyFromJson(json);
   @override
   JsonMap toJson() => _$ReminderProxyToJson(this);
+
+  @override
+  IReminder clone() => ReminderProxy();
 }
 
 @JsonSerializable()
@@ -110,7 +118,7 @@ class DaysReminder extends IReminder {
   final int days;
 
   @override
-  void setNewAlarm(Task task) {
+  void setNewAlarm(ITask task) {
     addDuration(task, Duration(days: days,));
   }
 
@@ -121,6 +129,9 @@ class DaysReminder extends IReminder {
   factory DaysReminder.fromJson(JsonMap json) => _$DaysReminderFromJson(json);
   @override
   JsonMap toJson() => _$DaysReminderToJson(this);
+
+  @override
+  IReminder clone() => DaysReminder(days: days);
 }
 @JsonSerializable()
 class WeeksReminder extends IReminder {
@@ -131,7 +142,7 @@ class WeeksReminder extends IReminder {
   final int weeks;
 
   @override
-  void setNewAlarm(Task task) {
+  void setNewAlarm(ITask task) {
     addDuration(task, Duration(days: weeks * 7));
   }
 
@@ -142,6 +153,9 @@ class WeeksReminder extends IReminder {
   factory WeeksReminder.fromJson(JsonMap json) => _$WeeksReminderFromJson(json);
   @override
   JsonMap toJson() => _$WeeksReminderToJson(this);
+
+  @override
+  IReminder clone() => WeeksReminder(weeks: weeks);
 }
 @JsonSerializable()
 class MonthsReminder extends IReminder {
@@ -152,7 +166,7 @@ class MonthsReminder extends IReminder {
   final int months;
 
   @override
-  void setNewAlarm(Task task) {
+  void setNewAlarm(ITask task) {
     var alert = getTodayAlertDateTime(task);
     var date = addMonths(alert, months);
 //    task.alert = date;
@@ -165,6 +179,9 @@ class MonthsReminder extends IReminder {
   factory MonthsReminder.fromJson(JsonMap json) => _$MonthsReminderFromJson(json);
   @override
   JsonMap toJson() => _$MonthsReminderToJson(this);
+
+  @override
+  IReminder clone() => MonthsReminder(months: months);
 }
 @JsonSerializable()
 class UltimoReminder extends IReminder {
@@ -173,7 +190,7 @@ class UltimoReminder extends IReminder {
   final ReminderType type = ReminderType.ULTIMO_REMINDER;
 
   @override
-  void setNewAlarm(Task task) {
+  void setNewAlarm(ITask task) {
     var alert = getTodayAlertDateTime(task);
     var date = addMonths(alert, 1);
     date = DateTime.utc(date.year, date.month).add(Duration(days: -1));
@@ -185,6 +202,9 @@ class UltimoReminder extends IReminder {
   factory UltimoReminder.fromJson(JsonMap json) => _$UltimoReminderFromJson(json);
   @override
   JsonMap toJson() => _$UltimoReminderToJson(this);
+
+  @override
+  IReminder clone() => UltimoReminder();
 }
 @JsonSerializable()
 class DayReminder extends IReminder {
@@ -193,7 +213,7 @@ class DayReminder extends IReminder {
   final ReminderType type = ReminderType.DAY_REMINDER;
 
   @override
-  void setNewAlarm(Task task) {
+  void setNewAlarm(ITask task) {
     // TODO: implement setNewAlarm
   }
 
@@ -202,5 +222,11 @@ class DayReminder extends IReminder {
   factory DayReminder.fromJson(JsonMap json) => _$DayReminderFromJson(json);
   @override
   JsonMap toJson() => _$DayReminderToJson(this);
+
+  @override
+  IReminder clone() {
+    // TODO: implement clone
+    throw UnimplementedError();
+  }
 }
 

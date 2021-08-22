@@ -8,7 +8,7 @@ import 'package:sqflite/sqflite.dart';
 import '../models/reminder_model.dart';
 import '../models/task_model.dart';
 
-typedef TasksFound = Iterable<Task>;
+typedef TasksFound = Iterable<ITask>;
 
 class TaskService {
 
@@ -53,7 +53,7 @@ class TaskService {
     return maps.length > 0;
   }
 
-  Future<Task> persist(Task task) async {
+  Future<ITask> persist(ITask task) async {
     await connect();
     String stringified = json.encode(task.toJson());
     if (await hasId(task.id)) {
@@ -78,7 +78,7 @@ class TaskService {
 
 
 
-  Future<Task?> findById(String id) async {
+  Future<ITask?> findById(String id) async {
     await connect();
     List<Map<String, Object?>> maps = await _db!.query(_tblTask, columns: [_colId, _colContent], where: '$_colId = ?', whereArgs: [id]);
     if (maps.length == 0) {
@@ -120,7 +120,7 @@ class TaskService {
       .where((task) => task.hasToBeDone())
   ;
 
-  Future<void> delete(Task task) async {
+  Future<void> delete(ITask task) async {
     deleteById(task.id);
   }
   Future<void> deleteById(String id) async {

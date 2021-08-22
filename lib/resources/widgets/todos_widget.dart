@@ -16,7 +16,7 @@ class TodosWidget extends NyStatefulWidget {
 }
 
 class _TodosWidgetState extends NyState<TodosWidget> {
-  List<Task> tasks = <Task>[];
+  List<ITask> tasks = <ITask>[];
   bool isDirty = true;
 
   void _addTask() {

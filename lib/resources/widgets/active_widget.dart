@@ -16,7 +16,7 @@ class ActiveWidget extends NyStatefulWidget {
 }
 
 class _ActiveWidgetState extends NyState<ActiveWidget> {
-  List<Task> tasks = <Task>[];
+  List<ITask> tasks = <ITask>[];
   bool isDirty = true;
 
   void _addTask() {
@@ -81,16 +81,16 @@ class _ActiveWidgetState extends NyState<ActiveWidget> {
               child: IconButton(
                   onPressed: () {
 //                    Navigator.pushNamed(context, "/new");
-                    TaskService()
-                        .persist(
-                      Task(
-                        title: "clean kitchen sink",
-                        timeOfDay: TimeOfDay.now(),
-                        alert: DateTime.now(),
-                        reminder: DaysReminder(days: 1),
-                      ),
-                    )
-                        .whenComplete(() => loadList(true));
+                    // TaskService()
+                    //     .persist(
+                    //   Task(
+                    //     title: "clean kitchen sink",
+                    //     timeOfDay: TimeOfDay.now(),
+                    //     alert: DateTime.now(),
+                    //     reminder: DaysReminder(days: 1),
+                    //   ),
+                    // )
+                    //     .whenComplete(() => loadList(true));
                   },
                   icon: Icon(
                     Icons.add,

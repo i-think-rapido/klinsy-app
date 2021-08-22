@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_app/app/services/task_service.dart';
 import 'package:flutter_app/resources/pages/home_page.dart';
 import 'package:flutter_app/resources/pages/sub_page.dart';
 import 'package:flutter_app/resources/widgets/active_widget.dart';
 import 'package:flutter_app/resources/widgets/archived_widget.dart';
+import 'package:flutter_app/resources/widgets/task_edit_widget.dart';
 import 'package:flutter_app/resources/widgets/todos_widget.dart';
 import 'package:nylo_support/helpers/helper.dart';
 import 'package:nylo_support/router/router.dart';
@@ -28,6 +28,7 @@ buildRouter() => nyCreateRoutes((router) {
               ),
           transition: PageTransitionType.fade);
 
+      // Add your routes here
       router.route(
           "/todos",
           (context) => SubPage(
@@ -62,13 +63,10 @@ buildRouter() => nyCreateRoutes((router) {
 
       router.route(
           "/edit",
-          (context) => SubPage(
-                title: trans(context, "edit task")!.capitalize(),
-                child: Text('asdfasdf'),
-              ),
+              (context) => SubPage(
+            title: trans(context, "archive")!.capitalize(),
+            child: TaskEditWidget(),
+          ),
           transition: PageTransitionType.fade);
 
-      // Add your routes here
-
-      // router.route("/new-page", (context) => NewPage());
     });

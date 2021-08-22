@@ -16,7 +16,7 @@ class ArchivedWidget extends NyStatefulWidget {
 }
 
 class _ArchivedWidgetState extends NyState<ArchivedWidget> {
-  List<Task> tasks = <Task>[];
+  List<ITask> tasks = <ITask>[];
   bool isDirty = true;
 
   void loadList(isDirty) {
