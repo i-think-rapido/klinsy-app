@@ -117,7 +117,7 @@ class TaskService {
   ;
 
   Future<TasksFound> findAllTodos() async => (await findAllActive())
-      .where((task) => task.alert.isBefore(DateTime.now()))
+      .where((task) => task.hasToBeDone())
   ;
 
   Future<void> delete(Task task) async {

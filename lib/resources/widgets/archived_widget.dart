@@ -42,12 +42,12 @@ class _ArchivedWidgetState extends NyState<ArchivedWidget> {
               task: tasks[index],
             ),
             onDismissed: (direction) => dismissItem(context, index, direction),
-            leftIcon: const Icon(
-              Icons.done,
+            backgroundIcon: const Icon(
+              Icons.undo,
               color: Colors.white,
             ),
-            rightIcon: const Icon(
-              Icons.delete,
+            secondaryBackgroundIcon: const Icon(
+              Icons.delete_forever_outlined,
               color: Colors.white,
             ),
           ),

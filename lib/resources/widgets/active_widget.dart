@@ -22,18 +22,19 @@ class _ActiveWidgetState extends NyState<ActiveWidget> {
   void _addTask() {
     TaskService()
         .persist(
-          Task(
-            title: "clean kitchen sink",
-            timeOfDay: TimeOfDay.now(),
-            alert: DateTime.now(),
-            reminder: DaysReminder(days: 1),
-          ),
-        )
+      Task(
+        title: "clean kitchen sink",
+        timeOfDay: TimeOfDay.now(),
+        alert: DateTime.now(),
+        reminder: DaysReminder(days: 1),
+      ),
+    )
         .whenComplete(() => loadList(true));
   }
 
   void loadList(isDirty) {
-    TaskService().findAllActive().then((value) => setState(() {
+    TaskService().findAllActive().then((value) =>
+        setState(() {
           tasks = value.toList();
           this.isDirty = isDirty;
         }));
@@ -49,21 +50,20 @@ class _ActiveWidgetState extends NyState<ActiveWidget> {
       children: [
         ListView.builder(
           itemCount: tasks.length,
-          itemBuilder: (context, index) => DismissibleWidget(
-            item: tasks[index],
-            child: TaskWidget(
-              task: tasks[index],
-            ),
-            onDismissed: (direction) => dismissItem(context, index, direction),
-            leftIcon: const Icon(
-              Icons.done,
-              color: Colors.white,
-            ),
-            rightIcon: const Icon(
-              Icons.delete,
-              color: Colors.white,
-            ),
-          ),
+          itemBuilder: (context, index) =>
+              DismissibleWidget(
+                item: tasks[index],
+                child: TaskWidget(
+                  task: tasks[index],
+                ),
+                direction: DismissDirection.startToEnd,
+                onDismissed: (direction) =>
+                    dismissItem(context, index, direction),
+                backgroundIcon: const Icon(
+                  Icons.save_alt,
+                  color: Colors.white,
+                ),
+              ),
         ),
         Positioned(
           bottom: 0,
@@ -73,24 +73,30 @@ class _ActiveWidgetState extends NyState<ActiveWidget> {
             tooltip: 'Add Task',
             child: Container(
               decoration: BoxDecoration(
-                color: Theme.of(context).accentColor,
+                color: Theme
+                    .of(context)
+                    .accentColor,
                 shape: BoxShape.circle,
               ),
               child: IconButton(
                   onPressed: () {
 //                    Navigator.pushNamed(context, "/new");
-                    TaskService().persist(
+                    TaskService()
+                        .persist(
                       Task(
                         title: "clean kitchen sink",
                         timeOfDay: TimeOfDay.now(),
                         alert: DateTime.now(),
                         reminder: DaysReminder(days: 1),
                       ),
-                    ).whenComplete(() => loadList(true));
+                    )
+                        .whenComplete(() => loadList(true));
                   },
                   icon: Icon(
                     Icons.add,
-                    color: Theme.of(context).buttonColor,
+                    color: Theme
+                        .of(context)
+                        .buttonColor,
                   )),
             ),
           ),
@@ -99,22 +105,40 @@ class _ActiveWidgetState extends NyState<ActiveWidget> {
     );
   }
 
-  void dismissItem(
-          BuildContext context, int index, DismissDirection direction) =>
-      setState(() {
-        final task = tasks.removeAt(index);
-        switch (direction) {
-          case DismissDirection.startToEnd:
-            task.reminder.setNewAlarm(task);
-            ScaffoldMessenger.of(context)
-                .showSnackBar(const SnackBar(content: Text('Task done...')));
-            break;
-          case DismissDirection.endToStart:
-            task.isArchived = true;
-            ScaffoldMessenger.of(context).showSnackBar(
-                const SnackBar(content: Text('Task archived...')));
-            break;
+  void dismissItem(BuildContext context, int index,
+      DismissDirection direction) {
+    if (tasks[index].hasToBeDone()) {
+      showDialog(
+        context: context,
+        builder: (context) =>
+            AlertDialog(
+              title: Text('undone todo'),
+              content: Text(
+                  'This Task has still to be done. Do you want to archive it anyway?'),
+              actions: [
+                TextButton(child: Text('Cancel'),
+                  onPressed: () => Navigator.pop(context, false),),
+                TextButton(child: Text('Proceed'),
+                  onPressed: () => Navigator.pop(context, true),),
+              ],
+            ),
+      ).then((value) {
+        if (value) {
+          archiveTask(index, context);
         }
-        TaskService().persist(task);
       });
+    } else {
+      archiveTask(index, context);
+    }
+  }
+
+  void archiveTask(int index, BuildContext context) {
+    setState(() {
+      final task = tasks.removeAt(index);
+      task.isArchived = true;
+      ScaffoldMessenger.of(context)
+          .showSnackBar(const SnackBar(content: Text('Task archived...')));
+      TaskService().persist(task);
+    });
+  }
 }

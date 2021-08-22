@@ -80,5 +80,8 @@ class Task {
 
     return out;
   }
+
+  bool hasToBeDone() => alert.isBefore(DateTime.now()) && !isArchived;
+
 }
 

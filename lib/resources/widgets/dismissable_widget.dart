@@ -6,8 +6,8 @@ class DismissibleWidget<T> extends StatelessWidget {
   final T item;
   final Widget child;
   final DismissDirectionCallback onDismissed;
-  final Icon leftIcon;
-  final Icon rightIcon;
+  final Icon? backgroundIcon;
+  final Icon? secondaryBackgroundIcon;
   final DismissDirection direction;
 
   DismissibleWidget({
@@ -15,11 +15,11 @@ class DismissibleWidget<T> extends StatelessWidget {
     required this.item,
     required this.child,
     required this.onDismissed,
-    this.leftIcon = const Icon(
+    this.backgroundIcon = const Icon(
       Icons.archive_sharp,
       color: Colors.white,
     ),
-    this.rightIcon = const Icon(
+    this.secondaryBackgroundIcon = const Icon(
       Icons.delete_forever,
       color: Colors.white,
     ),
@@ -39,17 +39,17 @@ class DismissibleWidget<T> extends StatelessWidget {
         ),
       );
 
-  Widget swipeLeftAction() => Container(
+  Widget? swipeLeftAction() => backgroundIcon == null ? null : Container(
         alignment: Alignment.centerLeft,
         padding: EdgeInsets.symmetric(horizontal: 20),
         color: Colors.green,
-        child: leftIcon,
-      );
+        child: backgroundIcon!,
+      ) as Widget;
 
-  Widget swipeRightAction() => Container(
+  Widget? swipeRightAction() => secondaryBackgroundIcon == null ? null : Container(
         alignment: Alignment.centerRight,
         padding: EdgeInsets.symmetric(horizontal: 20),
         color: Colors.orange,
-        child: rightIcon,
+        child: secondaryBackgroundIcon!,
       );
 }

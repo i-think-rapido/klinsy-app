@@ -55,12 +55,12 @@ class _TodosWidgetState extends NyState<TodosWidget> {
               task: tasks[index],
             ),
             onDismissed: (direction) => dismissItem(context, index, direction),
-            leftIcon: const Icon(
+            backgroundIcon: const Icon(
               Icons.done,
               color: Colors.white,
             ),
-            rightIcon: const Icon(
-              Icons.delete,
+            secondaryBackgroundIcon: const Icon(
+              Icons.delete_outline,
               color: Colors.white,
             ),
           ),
@@ -110,9 +110,9 @@ class _TodosWidgetState extends NyState<TodosWidget> {
                 .showSnackBar(const SnackBar(content: Text('Task done...')));
             break;
           case DismissDirection.endToStart:
-            task.isArchived = true;
+            task.reminder.setNewAlarm(task);
             ScaffoldMessenger.of(context).showSnackBar(
-                const SnackBar(content: Text('Task archived...')));
+                const SnackBar(content: Text('Task ignored...')));
             break;
         }
         TaskService().persist(task);
