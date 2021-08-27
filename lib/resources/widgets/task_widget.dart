@@ -3,15 +3,21 @@ library widgets;
 import 'package:flutter/material.dart';
 import 'package:flutter_app/app/models/task_model.dart';
 
-class TaskWidget extends StatelessWidget {
-  final ITask task;
+typedef PerformAction = void Function();
 
-  TaskWidget({Key? key, required this.task});
+class TaskWidget extends StatelessWidget {
+  ITask task;
+  PerformAction action = () {};
+
+  TaskWidget({Key? key, required this.task, PerformAction? action,}) : super(key: key) {
+    if (action != null) {
+      this.action = action;
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
     return Padding(
-      key: key,
       padding: EdgeInsets.symmetric(vertical: 8.0, horizontal: 10.0),
       child: Stack(
         children: [
@@ -42,11 +48,20 @@ class TaskWidget extends StatelessWidget {
             top: -5,
             right: 0,
             child: IconButton(
-              onPressed: () => Navigator.pushNamed(context, "/edit", arguments: TaskProxy(task, cloned: true)),
+              onPressed: () {
+                Navigator.pushNamed(
+                    context, "/edit", arguments: TaskProxy(task, cloned: true))
+                    .then((value) {
+                      task = (value as ITask?)!;
+                      action();
+                    });
+              },
               icon: Icon(
                 Icons.edit,
                 size: 18.0,
-                color: Theme.of(context).accentColor,
+                color: Theme
+                    .of(context)
+                    .accentColor,
               ),
             ),
           ),

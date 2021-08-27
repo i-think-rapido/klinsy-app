@@ -66,6 +66,8 @@ abstract class ITask {
   bool hasToBeDone();
 
   ITask clone();
+
+  ITask change({String? title, bool? isArchived, TimeOfDay? timeOfDay, DateTime? alert, IReminder? reminder});
 }
 
 class Task extends ITask {
@@ -140,6 +142,13 @@ class Task extends ITask {
     out.id = id;
     return out;
   }
+
+  @override
+  ITask change({String? title, bool? isArchived, TimeOfDay? timeOfDay, DateTime? alert, IReminder? reminder}) {
+    var out = Task( title: title ?? this.title, isArchived: isArchived ?? this.isArchived, timeOfDay: timeOfDay ?? this.timeOfDay, alert: alert ?? this.alert, reminder: reminder ?? this.reminder, );
+    out.id = this.id;
+    return out;
+  }
 }
 
 class TaskProxy extends ITask {
@@ -184,5 +193,10 @@ class TaskProxy extends ITask {
   set isArchived(bool value) => task.isArchived = value;
   @override
   set alert(DateTime value) => task.alert = value;
+
+  @override
+  ITask change({String? title, bool? isArchived, TimeOfDay? timeOfDay, DateTime? alert, IReminder? reminder}) {
+    return task.change( title: title, isArchived: isArchived, timeOfDay: timeOfDay, alert: alert, reminder: reminder, );
+  }
 
 }

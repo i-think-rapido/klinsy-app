@@ -54,7 +54,9 @@ class _ActiveWidgetState extends NyState<ActiveWidget> {
               DismissibleWidget(
                 item: tasks[index],
                 child: TaskWidget(
+                  key: ObjectKey(tasks[index]),
                   task: tasks[index],
+                  action: () => loadList(true),
                 ),
                 direction: DismissDirection.startToEnd,
                 onDismissed: (direction) =>

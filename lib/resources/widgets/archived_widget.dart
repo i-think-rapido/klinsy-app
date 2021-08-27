@@ -40,6 +40,7 @@ class _ArchivedWidgetState extends NyState<ArchivedWidget> {
             item: tasks[index],
             child: TaskWidget(
               task: tasks[index],
+              action: () => loadList(false),
             ),
             onDismissed: (direction) => dismissItem(context, index, direction),
             backgroundIcon: const Icon(

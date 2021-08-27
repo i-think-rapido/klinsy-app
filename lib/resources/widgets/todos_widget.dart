@@ -53,6 +53,7 @@ class _TodosWidgetState extends NyState<TodosWidget> {
             item: tasks[index],
             child: TaskWidget(
               task: tasks[index],
+              action: () => loadList(true),
             ),
             onDismissed: (direction) => dismissItem(context, index, direction),
             backgroundIcon: const Icon(
