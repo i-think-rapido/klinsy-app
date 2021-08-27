@@ -30,6 +30,19 @@ class _TaskEditWidget extends NyState<TaskEditWidget> {
     return _task!;
   }
 
+  _selectTime(BuildContext context) async {
+    final TimeOfDay? timeOfDay = await showTimePicker(
+      context: context,
+      initialTime: task(context).timeOfDay,
+      initialEntryMode: TimePickerEntryMode.dial,
+    );
+    if (timeOfDay != null && timeOfDay != task(context).timeOfDay) {
+      setState(() {
+        setTask(task(context).change(timeOfDay: timeOfDay));
+      });
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Form(
@@ -40,6 +53,7 @@ class _TaskEditWidget extends NyState<TaskEditWidget> {
           children: [
             Column(
               children: <Widget>[
+                Text('Title:'),
                 Padding(
                   padding: EdgeInsets.all(10.0),
                   child: TextFormField(
@@ -52,13 +66,16 @@ class _TaskEditWidget extends NyState<TaskEditWidget> {
                       return null;
                     },
                   ),
-                  // Title(
-                  //     color: Colors.blue,
-                  //     child: Text(
-                  //       task(context).title,
-                  //       textAlign: TextAlign.left,
-                  //     )),
                 ),
+                Divider(),
+                Text('Time of day to pop up:'),
+                Text(
+                    '${task(context).timeOfDay.hour}:${task(context).timeOfDay.minute}'),
+                ElevatedButton(
+                    onPressed: () {
+                      _selectTime(context);
+                    },
+                    child: Text("Choose Time")),
                 Divider(),
                 Container(
                   height: 200,
