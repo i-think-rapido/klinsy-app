@@ -5,6 +5,7 @@ import 'package:flutter_app/app/controllers/task_edit_controller.dart';
 import 'package:flutter_app/app/models/reminder_model.dart';
 import 'package:flutter_app/app/models/task_model.dart';
 import 'package:flutter_app/app/services/task_service.dart';
+import 'package:flutter_app/resources/widgets/reminder_widget.dart';
 import 'package:nylo_support/widgets/ny_state.dart';
 import 'package:nylo_support/widgets/ny_stateful_widget.dart';
 
@@ -12,10 +13,10 @@ class TaskEditWidget extends NyStatefulWidget {
   TaskEditWidget() : super(controller: TaskEditController());
 
   @override
-  State<StatefulWidget> createState() => _TaskEditWidget();
+  State<StatefulWidget> createState() => TaskEditWidgetState();
 }
 
-class _TaskEditWidget extends NyState<TaskEditWidget> {
+class TaskEditWidgetState extends NyState<TaskEditWidget> {
   final _formKey = GlobalKey<FormState>();
 
   TaskProxy? _task;
@@ -76,6 +77,9 @@ class _TaskEditWidget extends NyState<TaskEditWidget> {
                       _selectTime(context);
                     },
                     child: Text("Choose Time")),
+                Divider(),
+                Text('How to remind you:'),
+                ReminderWidget(state: this,),
                 Divider(),
                 Container(
                   height: 200,

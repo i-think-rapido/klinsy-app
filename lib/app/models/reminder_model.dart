@@ -23,6 +23,20 @@ final reminderMap = {
   ReminderType.ULTIMO_REMINDER: (JsonMap json) => UltimoReminder.fromJson(json['reminder']!),
   ReminderType.DAY_REMINDER: (JsonMap json) => DayReminder.fromJson(json['reminder']!),
 };
+final reminderMapText = {
+  ReminderType.DAYS_REMINDER: 'Remind me in X days',
+  ReminderType.WEEKS_REMINDER: 'Remind me in X weeks',
+  ReminderType.MONTHS_REMINDER: 'Remind me in X months',
+  ReminderType.ULTIMO_REMINDER: 'Remind me on last day of a month',
+  //ReminderType.DAY_REMINDER: 'Remind on the n-th day of a month',
+};
+final reminderMapTemplate = {
+  ReminderType.DAYS_REMINDER: DaysReminder(days: 1),
+  ReminderType.WEEKS_REMINDER: WeeksReminder(weeks: 1),
+  ReminderType.MONTHS_REMINDER: MonthsReminder(months: 1),
+  ReminderType.ULTIMO_REMINDER: UltimoReminder(),
+  ReminderType.DAY_REMINDER: DayReminder(),
+};
 
 abstract class IReminder {
 
