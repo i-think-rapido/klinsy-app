@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'dart:convert';
 
+import 'package:flutter/material.dart';
 import 'package:flutter_app/app/models/task_model.dart';
 import 'package:path/path.dart';
 import 'package:sqflite/sqflite.dart';
@@ -136,5 +137,15 @@ class TaskService {
   Future<int> count() async {
     return (await findAll()).length;
   }
+
+  static ITask defaultTask() => Task(
+        title: "play soccer",
+        timeOfDay: TimeOfDay.now(),
+        alert: DateTime.now(),
+        reminder: DaysReminder(days: 1),
+        picturePath: '<none>',
+      );
+
+
 }
 

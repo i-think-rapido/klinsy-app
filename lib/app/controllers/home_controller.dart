@@ -1,4 +1,6 @@
 import 'package:flutter/widgets.dart';
+import 'package:flutter_app/app/models/task_model.dart';
+import 'package:flutter_app/app/services/task_service.dart';
 import 'package:nylo_support/router/router.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'controller.dart';
@@ -22,6 +24,6 @@ class HomeController extends Controller {
   }
 
   onTapNewTask() {
-    Navigator.pushNamed(context!, '/new');
+    Navigator.pushNamed(context!, '/new', arguments: TaskProxy(TaskService.defaultTask()));
   }
 }

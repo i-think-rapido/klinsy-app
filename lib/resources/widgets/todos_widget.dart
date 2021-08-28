@@ -21,14 +21,7 @@ class _TodosWidgetState extends NyState<TodosWidget> {
 
   void _addTask() {
     TaskService()
-        .persist(
-          Task(
-            title: "clean kitchen sink",
-            timeOfDay: TimeOfDay.now(),
-            alert: DateTime.now(),
-            reminder: DaysReminder(days: 1),
-          ),
-        )
+        .persist(TaskService.defaultTask())
         .whenComplete(() => loadList(true));
   }
 
@@ -80,14 +73,8 @@ class _TodosWidgetState extends NyState<TodosWidget> {
               child: IconButton(
                   onPressed: () {
                     Navigator.pushNamed(context, "/new",
-                        arguments: TaskProxy(
-                          Task(
-                            title: "clean kitchen sink",
-                            timeOfDay: TimeOfDay.now(),
-                            alert: DateTime.now(),
-                            reminder: DaysReminder(days: 1),
-                          ),
-                        )).then((value) {
+                            arguments: TaskProxy(TaskService.defaultTask()))
+                        .then((value) {
                       var task = (value as ITask?)!;
                       TaskService().persist(task);
                       loadList(true);

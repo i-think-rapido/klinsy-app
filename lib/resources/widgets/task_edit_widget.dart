@@ -1,11 +1,15 @@
 library widgets;
 
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_app/app/controllers/task_edit_controller.dart';
 import 'package:flutter_app/app/models/reminder_model.dart';
 import 'package:flutter_app/app/models/task_model.dart';
+import 'package:flutter_app/app/services/camera_service.dart';
 import 'package:flutter_app/app/services/task_service.dart';
 import 'package:flutter_app/resources/widgets/reminder_widget.dart';
+import 'package:nylo_support/helpers/helper.dart';
 import 'package:nylo_support/widgets/ny_state.dart';
 import 'package:nylo_support/widgets/ny_stateful_widget.dart';
 
@@ -79,15 +83,54 @@ class TaskEditWidgetState extends NyState<TaskEditWidget> {
                     child: Text("Choose Time")),
                 Divider(),
                 Text('How to remind you:'),
-                ReminderWidget(state: this,),
+                ReminderWidget(
+                  state: this,
+                ),
                 Divider(),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: <Widget>[
+                    IconButton(
+                      onPressed: () {
+                        Navigator.of(context)
+                            .pushNamed("/camera")
+                            .then((value) => setState(() {
+                                  setTask(task(context).change(
+                                    picturePath: (value as String?)!,
+                                  ));
+                                }));
+                      },
+                      icon: Icon(
+                        Icons.camera_alt,
+                        color: Theme.of(context).accentColor,
+                      ),
+                      tooltip: 'Take a picture',
+                    ),
+                    IconButton(
+                      onPressed: () => setState(() {
+                        setTask(task(context).change(
+                          picturePath: '<none>',
+                        ));
+                      }),
+                      icon: Icon(
+                        Icons.delete_forever,
+                        color: Theme.of(context).accentColor,
+                      ),
+                      tooltip: 'Erase picture',
+                    ),
+                  ],
+                ),
                 Container(
                   height: 200,
-                  child: ClipRRect(
+                  child: task(context).picturePath == NO_PICTURE
+                      ? Image.asset(
+                    getImageAsset("no-photo.png"),
+                    height: 100,
+                    width: 100,
+                  )
+                  : ClipRRect(
                     borderRadius: BorderRadius.all(Radius.circular(10.0)),
-                    child: Image.network(
-                      'https://image.made-in-china.com/2f0j00bKLaYsGFJrfW/China-Supplier-Oil-Resistance-Composite-Stone-Sink-Granite-Kitchen-Sinks.jpg',
-                    ),
+                    child: Image.file(File(task(context).picturePath)),
                   ),
                 ),
               ],

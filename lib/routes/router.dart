@@ -3,6 +3,7 @@ import 'package:flutter_app/resources/pages/home_page.dart';
 import 'package:flutter_app/resources/pages/sub_page.dart';
 import 'package:flutter_app/resources/widgets/active_widget.dart';
 import 'package:flutter_app/resources/widgets/archived_widget.dart';
+import 'package:flutter_app/resources/widgets/take_picture_screen.dart';
 import 'package:flutter_app/resources/widgets/task_edit_widget.dart';
 import 'package:flutter_app/resources/widgets/todos_widget.dart';
 import 'package:nylo_support/helpers/helper.dart';
@@ -67,5 +68,8 @@ buildRouter() => nyCreateRoutes((router) {
                 title: trans(context, "archive")!.capitalize(),
                 child: TaskEditWidget(),
               ),
+          transition: PageTransitionType.fade);
+
+      router.route("/camera", (context) => TakePictureScreen(),
           transition: PageTransitionType.fade);
     });

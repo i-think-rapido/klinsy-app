@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:json_annotation/json_annotation.dart';
 import 'package:uuid/uuid.dart';
@@ -17,6 +19,7 @@ class TaskJsonCompatible {
   final int alertMillis;
   final ReminderType type;
   final IReminder reminder;
+  final String picturePath;
 
   TaskJsonCompatible({
     required this.id,
@@ -27,6 +30,7 @@ class TaskJsonCompatible {
     required this.alertMillis,
     required this.type,
     required this.reminder,
+    required this.picturePath,
   });
 
   factory TaskJsonCompatible.ofTask(ITask task) {
@@ -39,6 +43,7 @@ class TaskJsonCompatible {
       alertMillis: task.alert.millisecondsSinceEpoch,
       type: task.reminder.type,
       reminder: task.reminder,
+      picturePath: task.picturePath,
     );
   }
 
@@ -56,6 +61,7 @@ abstract class ITask {
   TimeOfDay get timeOfDay;
   DateTime get alert;
   IReminder get reminder;
+  String get picturePath;
 
   set id(String value);
   set isArchived(bool value);
@@ -67,7 +73,7 @@ abstract class ITask {
 
   ITask clone();
 
-  ITask change({String? title, bool? isArchived, TimeOfDay? timeOfDay, DateTime? alert, IReminder? reminder});
+  ITask change({String? title, bool? isArchived, TimeOfDay? timeOfDay, DateTime? alert, IReminder? reminder, String? picturePath, });
 }
 
 class Task extends ITask {
@@ -78,6 +84,7 @@ class Task extends ITask {
   late final TimeOfDay _timeOfDay;
   late DateTime _alert;
   late final IReminder _reminder;
+  late final String _picturePath;
 
   @override
   String get id => _id;
@@ -92,6 +99,8 @@ class Task extends ITask {
   @override
   IReminder get reminder => _reminder;
   @override
+  String get picturePath => _picturePath;
+  @override
   set id(String value) => _id = value;
   @override
   set isArchived(bool value) => _isArchived = value;
@@ -104,12 +113,14 @@ class Task extends ITask {
     required timeOfDay,
     required alert,
     required reminder,
+    required picturePath,
   }) {
     _title = title;
     _isArchived = isArchived;
     _timeOfDay = timeOfDay;
     _alert = alert;
     _reminder = reminder;
+    _picturePath = picturePath;
   }
 
   factory Task.fromJson(JsonMap json) =>
@@ -126,6 +137,7 @@ class Task extends ITask {
           hour: taskjson.timeOfDayHour, minute: taskjson.timeOfDayMinute),
       alert: DateTime.fromMillisecondsSinceEpoch(taskjson.alertMillis),
       reminder: reminderMap[taskjson.type]!(json),
+      picturePath: taskjson.picturePath,
     );
 
     out.id = taskjson.id;
@@ -138,14 +150,14 @@ class Task extends ITask {
 
   @override
   ITask clone() {
-    var out = Task(title: title, isArchived: isArchived, timeOfDay: timeOfDay, alert: alert, reminder: reminder.clone());
+    var out = Task(title: title, isArchived: isArchived, timeOfDay: timeOfDay, alert: alert, reminder: reminder.clone(), picturePath: picturePath, );
     out.id = id;
     return out;
   }
 
   @override
-  ITask change({String? title, bool? isArchived, TimeOfDay? timeOfDay, DateTime? alert, IReminder? reminder}) {
-    var out = Task( title: title ?? this.title, isArchived: isArchived ?? this.isArchived, timeOfDay: timeOfDay ?? this.timeOfDay, alert: alert ?? this.alert, reminder: reminder ?? this.reminder, );
+  ITask change({String? title, bool? isArchived, TimeOfDay? timeOfDay, DateTime? alert, IReminder? reminder, String? picturePath, }) {
+    var out = Task( title: title ?? this.title, isArchived: isArchived ?? this.isArchived, timeOfDay: timeOfDay ?? this.timeOfDay, alert: alert ?? this.alert, reminder: reminder ?? this.reminder, picturePath: picturePath ?? this.picturePath, );
     out.id = this.id;
     return out;
   }
@@ -164,6 +176,7 @@ class TaskProxy extends ITask {
         timeOfDay: TimeOfDay.now(),
         alert: DateTime.now(),
         reminder: DaysReminder(days: 1),
+        picturePath: '<none>'
       );
     }
   }
@@ -188,6 +201,8 @@ class TaskProxy extends ITask {
   @override
   IReminder get reminder => task.reminder;
   @override
+  String get picturePath => task.picturePath;
+  @override
   set id(String value) => task.id = value;
   @override
   set isArchived(bool value) => task.isArchived = value;
@@ -195,8 +210,8 @@ class TaskProxy extends ITask {
   set alert(DateTime value) => task.alert = value;
 
   @override
-  ITask change({String? title, bool? isArchived, TimeOfDay? timeOfDay, DateTime? alert, IReminder? reminder}) {
-    return task.change( title: title, isArchived: isArchived, timeOfDay: timeOfDay, alert: alert, reminder: reminder, );
+  ITask change({String? title, bool? isArchived, TimeOfDay? timeOfDay, DateTime? alert, IReminder? reminder, String? picturePath, }) {
+    return task.change( title: title, isArchived: isArchived, timeOfDay: timeOfDay, alert: alert, reminder: reminder, picturePath: picturePath);
   }
 
 }

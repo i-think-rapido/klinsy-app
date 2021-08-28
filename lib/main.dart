@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_app/app/services/camera_service.dart';
 import 'package:flutter_app/bootstrap/app.dart';
 import 'package:flutter_app/resources/themes/dark_theme.dart';
 import 'package:flutter_app/resources/themes/light_theme.dart';
@@ -14,6 +15,8 @@ void main() async {
   final AppTheme appTheme = AppTheme();
 
   Nylo nylo = await initNylo(theme: lightTheme(appTheme), router: buildRouter());
+
+  CameraService();
 
   runApp(
     AppBuild(

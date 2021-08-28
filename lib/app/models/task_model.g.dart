@@ -16,6 +16,7 @@ TaskJsonCompatible _$TaskJsonCompatibleFromJson(Map<String, dynamic> json) {
     alertMillis: json['alertMillis'] as int,
     type: _$enumDecode(_$ReminderTypeEnumMap, json['type']),
     reminder: IReminder.fromJson(json['reminder'] as Map<String, dynamic>),
+    picturePath: json['picturePath'] as String,
   );
 }
 
@@ -29,6 +30,7 @@ Map<String, dynamic> _$TaskJsonCompatibleToJson(TaskJsonCompatible instance) =>
       'alertMillis': instance.alertMillis,
       'type': _$ReminderTypeEnumMap[instance.type],
       'reminder': instance.reminder,
+      'picturePath': instance.picturePath,
     };
 
 K _$enumDecode<K, V>(
