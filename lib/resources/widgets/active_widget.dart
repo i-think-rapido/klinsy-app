@@ -22,19 +22,18 @@ class _ActiveWidgetState extends NyState<ActiveWidget> {
   void _addTask() {
     TaskService()
         .persist(
-      Task(
-        title: "clean kitchen sink",
-        timeOfDay: TimeOfDay.now(),
-        alert: DateTime.now(),
-        reminder: DaysReminder(days: 1),
-      ),
-    )
+          Task(
+            title: "clean kitchen sink",
+            timeOfDay: TimeOfDay.now(),
+            alert: DateTime.now(),
+            reminder: DaysReminder(days: 1),
+          ),
+        )
         .whenComplete(() => loadList(true));
   }
 
   void loadList(isDirty) {
-    TaskService().findAllActive().then((value) =>
-        setState(() {
+    TaskService().findAllActive().then((value) => setState(() {
           tasks = value.toList();
           this.isDirty = isDirty;
         }));
@@ -50,22 +49,20 @@ class _ActiveWidgetState extends NyState<ActiveWidget> {
       children: [
         ListView.builder(
           itemCount: tasks.length,
-          itemBuilder: (context, index) =>
-              DismissibleWidget(
-                item: tasks[index],
-                child: TaskWidget(
-                  key: ObjectKey(tasks[index]),
-                  task: tasks[index],
-                  action: () => loadList(true),
-                ),
-                direction: DismissDirection.startToEnd,
-                onDismissed: (direction) =>
-                    dismissItem(context, index, direction),
-                backgroundIcon: const Icon(
-                  Icons.save_alt,
-                  color: Colors.white,
-                ),
-              ),
+          itemBuilder: (context, index) => DismissibleWidget(
+            item: tasks[index],
+            child: TaskWidget(
+              key: ObjectKey(tasks[index]),
+              task: tasks[index],
+              action: () => loadList(true),
+            ),
+            direction: DismissDirection.startToEnd,
+            onDismissed: (direction) => dismissItem(context, index, direction),
+            backgroundIcon: const Icon(
+              Icons.save_alt,
+              color: Colors.white,
+            ),
+          ),
         ),
         Positioned(
           bottom: 0,
@@ -75,30 +72,28 @@ class _ActiveWidgetState extends NyState<ActiveWidget> {
             tooltip: 'Add Task',
             child: Container(
               decoration: BoxDecoration(
-                color: Theme
-                    .of(context)
-                    .accentColor,
+                color: Theme.of(context).accentColor,
                 shape: BoxShape.circle,
               ),
               child: IconButton(
                   onPressed: () {
-//                    Navigator.pushNamed(context, "/new");
-                    // TaskService()
-                    //     .persist(
-                    //   Task(
-                    //     title: "clean kitchen sink",
-                    //     timeOfDay: TimeOfDay.now(),
-                    //     alert: DateTime.now(),
-                    //     reminder: DaysReminder(days: 1),
-                    //   ),
-                    // )
-                    //     .whenComplete(() => loadList(true));
+                    Navigator.pushNamed(context, "/new",
+                        arguments: TaskProxy(
+                          Task(
+                            title: "clean kitchen sink",
+                            timeOfDay: TimeOfDay.now(),
+                            alert: DateTime.now(),
+                            reminder: DaysReminder(days: 1),
+                          ),
+                        )).then((value) {
+                      var task = (value as ITask?)!;
+                      TaskService().persist(task);
+                      loadList(true);
+                    });
                   },
                   icon: Icon(
                     Icons.add,
-                    color: Theme
-                        .of(context)
-                        .buttonColor,
+                    color: Theme.of(context).buttonColor,
                   )),
             ),
           ),
@@ -107,23 +102,26 @@ class _ActiveWidgetState extends NyState<ActiveWidget> {
     );
   }
 
-  void dismissItem(BuildContext context, int index,
-      DismissDirection direction) {
+  void dismissItem(
+      BuildContext context, int index, DismissDirection direction) {
     if (tasks[index].hasToBeDone()) {
       showDialog(
         context: context,
-        builder: (context) =>
-            AlertDialog(
-              title: Text('undone todo'),
-              content: Text(
-                  'This Task has still to be done. Do you want to archive it anyway?'),
-              actions: [
-                TextButton(child: Text('Cancel'),
-                  onPressed: () => Navigator.pop(context, false),),
-                TextButton(child: Text('Proceed'),
-                  onPressed: () => Navigator.pop(context, true),),
-              ],
+        builder: (context) => AlertDialog(
+          title: Text('undone todo'),
+          content: Text(
+              'This Task has still to be done. Do you want to archive it anyway?'),
+          actions: [
+            TextButton(
+              child: Text('Cancel'),
+              onPressed: () => Navigator.pop(context, false),
             ),
+            TextButton(
+              child: Text('Proceed'),
+              onPressed: () => Navigator.pop(context, true),
+            ),
+          ],
+        ),
       ).then((value) {
         if (value) {
           archiveTask(index, context);

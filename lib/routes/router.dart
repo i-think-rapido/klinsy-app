@@ -41,7 +41,7 @@ buildRouter() => nyCreateRoutes((router) {
           "/active",
           (context) => SubPage(
                 title: trans(context, "active")!.capitalize(),
-            child: ActiveWidget(),
+                child: ActiveWidget(),
               ),
           transition: PageTransitionType.fade);
 
@@ -49,7 +49,7 @@ buildRouter() => nyCreateRoutes((router) {
           "/archive",
           (context) => SubPage(
                 title: trans(context, "archive")!.capitalize(),
-              child: ArchivedWidget(),
+                child: ArchivedWidget(),
               ),
           transition: PageTransitionType.fade);
 
@@ -57,16 +57,15 @@ buildRouter() => nyCreateRoutes((router) {
           "/new",
           (context) => SubPage(
                 title: trans(context, "new task")!.capitalize(),
-                child: Text('asdfasdf'),
+                child: TaskEditWidget(),
               ),
           transition: PageTransitionType.fade);
 
       router.route(
           "/edit",
-              (context) => SubPage(
-            title: trans(context, "archive")!.capitalize(),
-            child: TaskEditWidget(),
-          ),
+          (context) => SubPage(
+                title: trans(context, "archive")!.capitalize(),
+                child: TaskEditWidget(),
+              ),
           transition: PageTransitionType.fade);
-
     });

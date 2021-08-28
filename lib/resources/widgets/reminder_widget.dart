@@ -49,39 +49,58 @@ class _ReminderWidgetState extends NyState<ReminderWidget> {
   }
 }
 
-Widget _determineReminderWidget(IReminder initialValue,
-    void Function(IReminder) onChanged) {
+Widget _determineReminderWidget(
+    IReminder initialValue, void Function(IReminder) onChanged) {
   Widget out = SizedBox.shrink();
 
   switch (initialValue.type) {
     case ReminderType.DAYS_REMINDER:
-      out = TextFormField(
+      out = _MyNumberField(
         initialValue: (initialValue as DaysReminder).days.toString(),
-        keyboardType: TextInputType.number,
-        onChanged: (value) {
-          onChanged(DaysReminder(days: int.parse(value)));
-        },
+        onChanged: (value) => _stringOnChanged(
+            value, onChanged, (value) => DaysReminder(days: value)),
       );
       break;
     case ReminderType.WEEKS_REMINDER:
-      out = TextFormField(
+      out = _MyNumberField(
         initialValue: (initialValue as WeeksReminder).weeks.toString(),
-        keyboardType: TextInputType.number,
-        onChanged: (value) {
-          onChanged(WeeksReminder(weeks: int.parse(value)));
-        },
+        onChanged: (value) => _stringOnChanged(
+            value, onChanged, (value) => WeeksReminder(weeks: value)),
       );
       break;
     case ReminderType.MONTHS_REMINDER:
-      out = TextFormField(
+      out = _MyNumberField(
         initialValue: (initialValue as MonthsReminder).months.toString(),
-        keyboardType: TextInputType.number,
-        onChanged: (value) {
-          onChanged(MonthsReminder(months: int.parse(value)));
-        },
+        onChanged: (value) => _stringOnChanged(
+            value, onChanged, (value) => MonthsReminder(months: value)),
       );
       break;
   }
 
   return out;
+}
+
+class _MyNumberField extends TextFormField {
+  final String initialValue;
+  final void Function(String) onChanged;
+
+  _MyNumberField({required this.initialValue, required this.onChanged})
+      : super(
+          initialValue: initialValue,
+          onChanged: onChanged,
+          keyboardType: TextInputType.number,
+          validator: (value) {
+            if (value == null || value.isEmpty) {
+              return 'Value must be provided';
+            }
+            return null;
+          },
+        );
+}
+
+void _stringOnChanged(String value, void Function(IReminder) onChanged,
+    IReminder Function(int) handler) {
+  if (value.isNotEmpty) {
+    onChanged(handler(int.parse(value)));
+  }
 }

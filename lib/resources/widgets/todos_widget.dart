@@ -79,15 +79,19 @@ class _TodosWidgetState extends NyState<TodosWidget> {
               ),
               child: IconButton(
                   onPressed: () {
-//                    Navigator.pushNamed(context, "/new");
-                    TaskService().persist(
-                      Task(
-                        title: "clean kitchen sink",
-                        timeOfDay: TimeOfDay.now(),
-                        alert: DateTime.now(),
-                        reminder: DaysReminder(days: 1),
-                      ),
-                    ).whenComplete(() => loadList(true));
+                    Navigator.pushNamed(context, "/new",
+                        arguments: TaskProxy(
+                          Task(
+                            title: "clean kitchen sink",
+                            timeOfDay: TimeOfDay.now(),
+                            alert: DateTime.now(),
+                            reminder: DaysReminder(days: 1),
+                          ),
+                        )).then((value) {
+                      var task = (value as ITask?)!;
+                      TaskService().persist(task);
+                      loadList(true);
+                    });
                   },
                   icon: Icon(
                     Icons.add,
@@ -112,8 +116,8 @@ class _TodosWidgetState extends NyState<TodosWidget> {
             break;
           case DismissDirection.endToStart:
             task.reminder.setNewAlarm(task);
-            ScaffoldMessenger.of(context).showSnackBar(
-                const SnackBar(content: Text('Task ignored...')));
+            ScaffoldMessenger.of(context)
+                .showSnackBar(const SnackBar(content: Text('Task ignored...')));
             break;
         }
         TaskService().persist(task);
