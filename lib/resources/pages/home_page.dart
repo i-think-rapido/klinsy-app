@@ -1,10 +1,11 @@
+import 'package:Klinsy/app/controllers/home_controller.dart';
+import 'package:Klinsy/resources/widgets/safearea_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_app/app/controllers/home_controller.dart';
-import 'package:flutter_app/resources/widgets/safearea_widget.dart';
 import 'package:nylo_support/helpers/helper.dart';
 import 'package:nylo_support/widgets/ny_state.dart';
 import 'package:nylo_support/widgets/ny_stateful_widget.dart';
+import 'package:url_launcher/url_launcher.dart';
 import 'package:yaml/yaml.dart';
 
 class MyHomePage extends NyStatefulWidget {
@@ -33,7 +34,6 @@ class _MyHomePageState extends NyState<MyHomePage> {
 
   @override
   Widget build(BuildContext context) {
-
     widget.controller.construct(context);
 
     return Scaffold(
@@ -133,6 +133,14 @@ class _MyHomePageState extends NyState<MyHomePage> {
                         .textTheme
                         .bodyText2!
                         .copyWith(color: Colors.grey),
+                  ),
+                  ElevatedButton(
+                    onPressed: () => launch(
+                        'https://github.com/i-think-rapido/klinsy-app/blob/main/privacy-policy.md'),
+                    child: Text('privacy policy'),
+                    style: ElevatedButton.styleFrom(
+                      primary: Theme.of(context).accentColor,
+                    ),
                   ),
                 ],
               ),

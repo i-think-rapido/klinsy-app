@@ -1,13 +1,7 @@
-import 'dart:async';
-import 'dart:convert';
 
 import 'package:flutter/material.dart';
-import 'package:flutter_app/app/models/task_model.dart';
 import 'package:nylo_support/helpers/helper.dart';
-import 'package:path/path.dart';
-import 'package:sqflite/sqflite.dart';
 
-import '../models/reminder_model.dart';
 import '../models/task_model.dart';
 
 typedef TasksFound = Iterable<ITask>;

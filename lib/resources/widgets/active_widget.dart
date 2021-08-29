@@ -1,9 +1,8 @@
 library widgets;
 
+import 'package:Klinsy/app/models/task_model.dart';
+import 'package:Klinsy/app/services/task_service.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_app/app/models/reminder_model.dart';
-import 'package:flutter_app/app/models/task_model.dart';
-import 'package:flutter_app/app/services/task_service.dart';
 import 'package:nylo_support/widgets/ny_state.dart';
 import 'package:nylo_support/widgets/ny_stateful_widget.dart';
 
@@ -20,7 +19,7 @@ class _ActiveWidgetState extends NyState<ActiveWidget> {
   bool isDirty = true;
 
   void _addTask() {
-    TaskService()
+    var whenComplete = TaskService()
         .persist(TaskService.defaultTask())
         .whenComplete(() => loadList(true));
   }

@@ -1,5 +1,5 @@
+import 'package:Klinsy/resources/widgets/safearea_widget.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_app/resources/widgets/safearea_widget.dart';
 
 class SubPage extends StatelessWidget {
   final String title;

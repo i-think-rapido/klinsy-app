@@ -39,5 +39,9 @@ app.*.symbols
 # Obfuscation related
 app.*.map.json
 
+# Addtional files to be excluded
+key.properties
+upload-keystore.jks
+
 # Exceptions to above rules.
 !/packages/flutter_tools/test/data/dart_dependencies_test/**/.packages

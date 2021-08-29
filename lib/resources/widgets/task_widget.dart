@@ -2,9 +2,9 @@ library widgets;
 
 import 'dart:io';
 
+import 'package:Klinsy/app/models/task_model.dart';
+import 'package:Klinsy/app/services/camera_service.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_app/app/models/task_model.dart';
-import 'package:flutter_app/app/services/camera_service.dart';
 
 typedef PerformAction = void Function();
 

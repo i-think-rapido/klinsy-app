@@ -1,14 +1,15 @@
+import 'package:Klinsy/resources/themes/dark_theme.dart';
+import 'package:Klinsy/resources/themes/light_theme.dart';
+import 'package:Klinsy/routes/router.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_app/app/services/camera_service.dart';
-import 'package:flutter_app/bootstrap/app.dart';
-import 'package:flutter_app/resources/themes/dark_theme.dart';
-import 'package:flutter_app/resources/themes/light_theme.dart';
-import 'package:flutter_app/config/app_theme.dart';
-import 'package:flutter_app/routes/router.dart';
 import 'package:nylo_support/localization/app_localization.dart';
 import 'package:nylo_support/nylo.dart';
 import 'package:nylo_framework/nylo_framework.dart';
 import 'package:nylo_framework/theme/helper/theme_helper.dart';
+
+import 'app/services/camera_service.dart';
+import 'bootstrap/app.dart';
+import 'config/app_theme.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();

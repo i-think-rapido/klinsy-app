@@ -1,6 +1,6 @@
+import 'package:Klinsy/config/app_theme.dart';
+import 'package:Klinsy/resources/themes/text_theme/default_text_theme.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_app/config/app_theme.dart';
-import 'package:flutter_app/resources/themes/text_theme/default_text_theme.dart';
 import 'package:nylo_support/helpers/helper.dart';
 
 /*
