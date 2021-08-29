@@ -30,9 +30,6 @@ Some core features available
 ## Documentation
 *to be done*
 
-## Social
-* [Twitter](https://twitter.com/klinsyapp)
-
 ## Security
 All data is on your phone and isn't shared to the internet.
 
@@ -43,6 +40,11 @@ git clone https://github.com/i-think-rapido/klinsy-app.git
 ```
 
 or fork and provide pull requests.
+
+### Requirements
+* Dart >= 2.7.0
+* Flutter >= 1.20.2
+* Nylo = 1.1.0
 
 ## Credits
 * [Romeo Disca](https://github.com/thinkrapido)
