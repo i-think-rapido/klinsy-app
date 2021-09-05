@@ -3,6 +3,7 @@ library widgets;
 import 'package:Klinsy/app/models/task_model.dart';
 import 'package:Klinsy/app/services/task_service.dart';
 import 'package:flutter/material.dart';
+import 'package:nylo_support/helpers/helper.dart';
 import 'package:nylo_support/widgets/ny_state.dart';
 import 'package:nylo_support/widgets/ny_stateful_widget.dart';
 
@@ -61,7 +62,7 @@ class _ActiveWidgetState extends NyState<ActiveWidget> {
           right: 0,
           child: FloatingActionButton(
             onPressed: _addTask,
-            tooltip: 'Add Task',
+            tooltip: trans(context, 'Add Task')!,
             child: Container(
               decoration: BoxDecoration(
                 color: Theme.of(context).accentColor,
@@ -94,16 +95,16 @@ class _ActiveWidgetState extends NyState<ActiveWidget> {
       showDialog(
         context: context,
         builder: (context) => AlertDialog(
-          title: Text('undone todo'),
+          title: Text(trans(context, 'undone todo')!),
           content: Text(
-              'This Task has still to be done. Do you want to archive it anyway?'),
+              trans(context, 'This Task has still to be done. Do you want to archive it anyway?')!),
           actions: [
             TextButton(
-              child: Text('Cancel'),
+              child: Text(trans(context, 'Cancel')!),
               onPressed: () => Navigator.pop(context, false),
             ),
             TextButton(
-              child: Text('Proceed'),
+              child: Text(trans(context, 'Proceed')!),
               onPressed: () => Navigator.pop(context, true),
             ),
           ],
@@ -123,7 +124,7 @@ class _ActiveWidgetState extends NyState<ActiveWidget> {
       final task = tasks.removeAt(index);
       task.isArchived = true;
       ScaffoldMessenger.of(context)
-          .showSnackBar(const SnackBar(content: Text('Task archived...')));
+          .showSnackBar(SnackBar(content: Text(trans(context, 'Task archived...')!)));
       TaskService().persist(task);
     });
   }

@@ -1,5 +1,6 @@
 import 'dart:math';
 
+import 'package:Klinsy/app/services/task_service.dart';
 import 'package:flutter/material.dart';
 import 'package:json_annotation/json_annotation.dart';
 import 'package:uuid/uuid.dart';
@@ -171,13 +172,7 @@ class TaskProxy extends ITask {
     if (task != null) {
       this.task = cloned ? task.clone() : task;
     } else {
-      this.task = Task(
-        title: "clean kitchen sink",
-        timeOfDay: TimeOfDay.now(),
-        alert: DateTime.now(),
-        reminder: DaysReminder(days: 1),
-        picturePath: '<none>'
-      );
+      this.task = TaskService.defaultTask();
     }
   }
 

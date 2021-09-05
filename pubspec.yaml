@@ -15,7 +15,7 @@ description: Recurring Tasks Manager
 
 publish_to: 'none' # Remove this line if you wish to publish to pub.dev
 
-version: 1.0.0+3
+version: 1.1.0+1
 
 environment:
   sdk: '>=2.13.0 <3.0.0'
@@ -71,6 +71,7 @@ flutter:
     - public/assets/images/nylo_logo.png
     - public/assets/images/no-photo.png
     - lang/en.json
+    - lang/de.json
     - .env
     - pubspec.yaml
   #   - images/a_dot_ham.jpeg

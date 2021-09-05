@@ -3,6 +3,7 @@ library widgets;
 import 'package:Klinsy/app/models/task_model.dart';
 import 'package:Klinsy/app/services/task_service.dart';
 import 'package:flutter/material.dart';
+import 'package:nylo_support/helpers/helper.dart';
 import 'package:nylo_support/widgets/ny_state.dart';
 import 'package:nylo_support/widgets/ny_stateful_widget.dart';
 
@@ -63,7 +64,7 @@ class _TodosWidgetState extends NyState<TodosWidget> {
           right: 0,
           child: FloatingActionButton(
             onPressed: _addTask,
-            tooltip: 'Add Task',
+            tooltip: trans(context, 'Add Task')!,
             child: Container(
               decoration: BoxDecoration(
                 color: Theme.of(context).accentColor,
@@ -98,12 +99,12 @@ class _TodosWidgetState extends NyState<TodosWidget> {
           case DismissDirection.startToEnd:
             task.reminder.setNewAlarm(task);
             ScaffoldMessenger.of(context)
-                .showSnackBar(const SnackBar(content: Text('Task done...')));
+                .showSnackBar(SnackBar(content: Text(trans(context, 'Task done...')!)));
             break;
           case DismissDirection.endToStart:
             task.reminder.setNewAlarm(task);
             ScaffoldMessenger.of(context)
-                .showSnackBar(const SnackBar(content: Text('Task ignored...')));
+                .showSnackBar(SnackBar(content: Text(trans(context, 'Task ignored...')!)));
             break;
         }
         TaskService().persist(task);

@@ -3,6 +3,7 @@ library widgets;
 import 'package:Klinsy/app/models/task_model.dart';
 import 'package:Klinsy/app/services/task_service.dart';
 import 'package:flutter/material.dart';
+import 'package:nylo_support/helpers/helper.dart';
 import 'package:nylo_support/widgets/ny_state.dart';
 import 'package:nylo_support/widgets/ny_stateful_widget.dart';
 
@@ -64,11 +65,11 @@ class _ArchivedWidgetState extends NyState<ArchivedWidget> {
           task.isArchived = false;
           task.reminder.setNewAlarm(task);
           TaskService().persist(task);
-          ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Task active...')));
+          ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(trans(context, 'Task active...')!)));
           break;
         case DismissDirection.endToStart:
           TaskService().delete(task);
-          ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Task deleted...')));
+          ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(trans(context, 'Task deleted...')!)));
           break;
       }
     });

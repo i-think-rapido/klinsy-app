@@ -15,60 +15,60 @@ import 'package:page_transition/page_transition.dart';
 |
 | * [Tip] Create pages faster 🚀
 | // Run the below in the terminal to create new a page and controller.
-| // "flutter pub run nylo_framework:main make:page my_page -c"
+| // 'flutter pub run nylo_framework:main make:page my_page -c'
 | // Learn more https://nylo.dev/docs/1.x/router
 |--------------------------------------------------------------------------
 */
 
 buildRouter() => nyCreateRoutes((router) {
       router.route(
-          "/",
+          '/',
           (context) => MyHomePage(
-                title: getEnv("APP_NAME"),
+                title: getEnv('APP_NAME'),
               ),
           transition: PageTransitionType.fade);
 
       // Add your routes here
       router.route(
-          "/todos",
+          '/todos',
           (context) => SubPage(
-                title: trans(context, "todos")!.capitalize(),
+                title: trans(context, 'todos')!.capitalize(),
                 child: TodosWidget(),
               ),
           transition: PageTransitionType.fade);
 
       router.route(
-          "/active",
+          '/active',
           (context) => SubPage(
-                title: trans(context, "active")!.capitalize(),
+                title: trans(context, 'active')!.capitalize(),
                 child: ActiveWidget(),
               ),
           transition: PageTransitionType.fade);
 
       router.route(
-          "/archive",
+          '/archive',
           (context) => SubPage(
-                title: trans(context, "archive")!.capitalize(),
+                title: trans(context, 'archive')!.capitalize(),
                 child: ArchivedWidget(),
               ),
           transition: PageTransitionType.fade);
 
       router.route(
-          "/new",
+          '/new',
           (context) => SubPage(
-                title: trans(context, "new task")!.capitalize(),
+                title: trans(context, 'new task')!.capitalize(),
                 child: TaskEditWidget(),
               ),
           transition: PageTransitionType.fade);
 
       router.route(
-          "/edit",
+          '/edit',
           (context) => SubPage(
-                title: trans(context, "archive")!.capitalize(),
+                title: trans(context, 'archive')!.capitalize(),
                 child: TaskEditWidget(),
               ),
           transition: PageTransitionType.fade);
 
-      router.route("/camera", (context) => TakePictureScreen(),
+      router.route('/camera', (context) => TakePictureScreen(),
           transition: PageTransitionType.fade);
     });

@@ -57,7 +57,7 @@ class TaskEditWidgetState extends NyState<TaskEditWidget> {
           children: [
             Column(
               children: <Widget>[
-                Text('Title:'),
+                Text(trans(context, 'Title:')!),
                 Padding(
                   padding: EdgeInsets.all(10.0),
                   child: TextFormField(
@@ -72,16 +72,16 @@ class TaskEditWidgetState extends NyState<TaskEditWidget> {
                   ),
                 ),
                 Divider(),
-                Text('Time of day to pop up:'),
+                Text(trans(context, 'Time of day to pop up:')!),
                 Text(
                     '${task(context).timeOfDay.hour}:${task(context).timeOfDay.minute}'),
                 ElevatedButton(
                     onPressed: () {
                       _selectTime(context);
                     },
-                    child: Text("Choose Time")),
+                    child: Text(trans(context, 'Choose Time')!)),
                 Divider(),
-                Text('How to remind you:'),
+                Text(trans(context, 'How to remind you?')!),
                 ReminderWidget(
                   state: this,
                 ),
@@ -103,7 +103,7 @@ class TaskEditWidgetState extends NyState<TaskEditWidget> {
                         Icons.camera_alt,
                         color: Theme.of(context).accentColor,
                       ),
-                      tooltip: 'Take a picture',
+                      tooltip: trans(context, 'Take a picture')!,
                     ),
                     IconButton(
                       onPressed: () => setState(() {
@@ -115,7 +115,7 @@ class TaskEditWidgetState extends NyState<TaskEditWidget> {
                         Icons.delete_forever,
                         color: Theme.of(context).accentColor,
                       ),
-                      tooltip: 'Erase picture',
+                      tooltip: trans(context, 'Erase picture')!,
                     ),
                   ],
                 ),
@@ -123,14 +123,14 @@ class TaskEditWidgetState extends NyState<TaskEditWidget> {
                   height: 200,
                   child: task(context).picturePath == NO_PICTURE
                       ? Image.asset(
-                    getImageAsset("no-photo.png"),
-                    height: 100,
-                    width: 100,
-                  )
-                  : ClipRRect(
-                    borderRadius: BorderRadius.all(Radius.circular(10.0)),
-                    child: Image.file(File(task(context).picturePath)),
-                  ),
+                          getImageAsset("no-photo.png"),
+                          height: 100,
+                          width: 100,
+                        )
+                      : ClipRRect(
+                          borderRadius: BorderRadius.all(Radius.circular(10.0)),
+                          child: Image.file(File(task(context).picturePath)),
+                        ),
                 ),
               ],
             ),
@@ -140,7 +140,7 @@ class TaskEditWidgetState extends NyState<TaskEditWidget> {
                 children: [
                   FloatingActionButton(
                     //onPressed: _addTask,
-                    tooltip: 'Add Task',
+                    tooltip: trans(context, 'Add Task')!,
                     onPressed: () {},
                     child: Container(
                       decoration: BoxDecoration(
@@ -152,9 +152,9 @@ class TaskEditWidgetState extends NyState<TaskEditWidget> {
                           if (_formKey.currentState!.validate()) {
                             TaskService().persist(task(context));
                             Navigator.pop(context, task(context));
-                            ScaffoldMessenger.of(context).showSnackBar(
-                                const SnackBar(
-                                    content: Text('Saving task...')));
+                            ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                                content:
+                                    Text(trans(context, 'Saving task...')!)));
                           }
                         },
                         icon: Icon(

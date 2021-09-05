@@ -48,7 +48,7 @@ class _MyHomePageState extends NyState<MyHomePage> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
               Text(
-                getEnv("SHORT_DESCRIPTION"),
+                trans(context, getEnv("SHORT_DESCRIPTION"))!,
                 style: Theme.of(context).accentTextTheme.subtitle1,
                 textAlign: TextAlign.center,
               ),
@@ -137,7 +137,7 @@ class _MyHomePageState extends NyState<MyHomePage> {
                   ElevatedButton(
                     onPressed: () => launch(
                         'https://github.com/i-think-rapido/klinsy-app/blob/main/privacy-policy.md'),
-                    child: Text('privacy policy'),
+                    child: Text(trans(context, 'privacy policy')!),
                     style: ElevatedButton.styleFrom(
                       primary: Theme.of(context).accentColor,
                     ),

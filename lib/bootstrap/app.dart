@@ -49,7 +49,7 @@ class AppBuild extends StatelessWidget {
     this.color,
     this.darkTheme,
     this.themeMode = ThemeMode.system,
-    this.supportedLocales = const <Locale>[Locale('en', 'US')],
+    this.supportedLocales = const <Locale>[Locale('en', 'US'), Locale('de', 'DE')],
     this.debugShowMaterialGrid = false,
     this.showPerformanceOverlay = false,
     this.checkerboardRasterCacheImages = false,
