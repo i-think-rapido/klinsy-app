@@ -16,6 +16,7 @@ void main() async {
   final AppTheme appTheme = AppTheme();
 
   Nylo nylo = await initNylo(theme: lightTheme(appTheme), router: buildRouter());
+  AppLocale.instance.locale = Locale('en', 'US');
 
   CameraService();
 

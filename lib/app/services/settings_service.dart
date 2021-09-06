@@ -6,8 +6,8 @@ import '../models/task_model.dart';
 
 typedef TasksFound = Iterable<ITask>;
 
-const _REMINDER_TIME_HOUR = 'reminderTimeHour';
-const _REMINDER_TIME_MINUTE = 'reminderTimeMinute';
+const _REMINDER_TIME_HOUR = '_REMINDER_TIME_HOUR';
+const _REMINDER_TIME_MINUTE = '_REMINDER_TIME_MINUTE';
 
 class SettingsService {
 
@@ -17,8 +17,8 @@ class SettingsService {
 
   // Singleton
   SettingsService._privateConstructor() {
-    NyStorage.read(_REMINDER_TIME_HOUR).then((value) => _reminderTimeHour);
-    NyStorage.read(_REMINDER_TIME_MINUTE).then((value) => _reminderTimeMinute);
+    NyStorage.read(_REMINDER_TIME_HOUR).then((value) { if (value != null) { _reminderTimeHour = value; } });
+    NyStorage.read(_REMINDER_TIME_MINUTE).then((value) { if (value != null) { _reminderTimeMinute = value; } });
   }
   static final SettingsService _instance = SettingsService._privateConstructor();
   factory SettingsService() {

@@ -73,8 +73,7 @@ class TaskEditWidgetState extends NyState<TaskEditWidget> {
                 ),
                 Divider(),
                 Text(trans(context, 'Time of day to pop up:')!),
-                Text(
-                    '${task(context).timeOfDay.hour}:${task(context).timeOfDay.minute}'),
+                Text(timeOfDayToString(context, task(context).timeOfDay)),
                 ElevatedButton(
                     onPressed: () {
                       _selectTime(context);

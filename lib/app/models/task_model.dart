@@ -9,6 +9,12 @@ import './reminder_model.dart';
 
 part 'task_model.g.dart';
 
+timeOfDayToString(BuildContext context, TimeOfDay timeOfDay) {
+  final hour = timeOfDay.hour.toString().padLeft(2, '0');
+  final minute = timeOfDay.minute.toString().padLeft(2, '0');
+  return '${hour}:${minute}';
+}
+
 @JsonSerializable()
 class TaskJsonCompatible {
   final String id;

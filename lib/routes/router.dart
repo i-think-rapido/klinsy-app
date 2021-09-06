@@ -2,6 +2,7 @@ import 'package:Klinsy/resources/pages/home_page.dart';
 import 'package:Klinsy/resources/pages/sub_page.dart';
 import 'package:Klinsy/resources/widgets/active_widget.dart';
 import 'package:Klinsy/resources/widgets/archived_widget.dart';
+import 'package:Klinsy/resources/widgets/settings_widget.dart';
 import 'package:Klinsy/resources/widgets/take_picture_screen.dart';
 import 'package:Klinsy/resources/widgets/task_edit_widget.dart';
 import 'package:Klinsy/resources/widgets/todos_widget.dart';
@@ -23,8 +24,9 @@ import 'package:page_transition/page_transition.dart';
 buildRouter() => nyCreateRoutes((router) {
       router.route(
           '/',
-          (context) => MyHomePage(
+          (context) => SubPage(
                 title: getEnv('APP_NAME'),
+                child: MyHomePage(),
               ),
           transition: PageTransitionType.fade);
 
@@ -66,6 +68,14 @@ buildRouter() => nyCreateRoutes((router) {
           (context) => SubPage(
                 title: trans(context, 'archive')!.capitalize(),
                 child: TaskEditWidget(),
+              ),
+          transition: PageTransitionType.fade);
+
+      router.route(
+          '/settings',
+          (context) => SubPage(
+                title: trans(context, 'settings')!.capitalize(),
+                child: SettingsWidget(),
               ),
           transition: PageTransitionType.fade);
 
