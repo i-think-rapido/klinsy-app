@@ -183,7 +183,7 @@ class MonthsReminder extends IReminder {
   void setNewAlarm(ITask task) {
     var alert = getTodayAlertDateTime(task);
     var date = addMonths(alert, months);
-//    task.alert = date;
+    task.alert = date;
   }
 
   const MonthsReminder({ required this.months }) :
@@ -208,7 +208,7 @@ class UltimoReminder extends IReminder {
     var alert = getTodayAlertDateTime(task);
     var date = addMonths(alert, 1);
     date = DateTime.utc(date.year, date.month).add(Duration(days: -1));
-//    task.alert = date;
+    task.alert = date;
   }
 
   UltimoReminder() : super();

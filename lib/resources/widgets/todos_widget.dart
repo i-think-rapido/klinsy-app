@@ -95,14 +95,13 @@ class _TodosWidgetState extends NyState<TodosWidget> {
           BuildContext context, int index, DismissDirection direction) =>
       setState(() {
         final task = tasks.removeAt(index);
+        task.reminder.setNewAlarm(task);
         switch (direction) {
           case DismissDirection.startToEnd:
-            task.reminder.setNewAlarm(task);
             ScaffoldMessenger.of(context)
                 .showSnackBar(SnackBar(content: Text(trans(context, 'Task done...')!)));
             break;
           case DismissDirection.endToStart:
-            task.reminder.setNewAlarm(task);
             ScaffoldMessenger.of(context)
                 .showSnackBar(SnackBar(content: Text(trans(context, 'Task ignored...')!)));
             break;
