@@ -1,15 +1,10 @@
 library widgets;
 
-import 'dart:io';
 
 import 'package:Klinsy/app/controllers/task_edit_controller.dart';
 import 'package:Klinsy/app/models/locales.dart';
 import 'package:Klinsy/app/models/task_model.dart';
-import 'package:Klinsy/app/services/camera_service.dart';
 import 'package:Klinsy/app/services/settings_service.dart';
-import 'package:Klinsy/app/services/task_service.dart';
-import 'package:Klinsy/bootstrap/app.dart';
-import 'package:Klinsy/resources/widgets/reminder_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:nylo_support/helpers/helper.dart';
 import 'package:nylo_support/localization/app_localization.dart';
@@ -42,15 +37,7 @@ class SettingsWidgetState extends NyState<SettingsWidget> {
   @override
   Widget build(BuildContext context) {
     final localesMap = supportedLocalesMap(context);
-    var bla = localesMap.keys.map((e) {
-      print(e);
-      final out = DropdownMenuItem(value: e as Locale, child: Text(trans(context, 'German')!));
-      print(out);
-      return out;
-    }).toList();
-
-    print(AppLocale.instance.locale.toString());
-    print(bla);
+    final languageItems = localesMap.keys.map<DropdownMenuItem<Locale>>((Locale e) => DropdownMenuItem(value: e, child: Text(trans(context, localesMap[e])!))).toList();
 
     return Form(
       key: _formKey,
@@ -71,12 +58,15 @@ class SettingsWidgetState extends NyState<SettingsWidget> {
                 Divider(),
                 Text(trans(context, 'Set language:')!),
                 DropdownButton(
+                  value: AppLocale.instance.locale,
                   onChanged: (value) {
                     setState(() {
-                      AppLocale.instance.updateLocale(context, value as Locale);
+                      AppLocale.instance.updateLocale(context, (value as Locale?)!);
+                      SettingsService().locale =  (value as Locale?)!;
+                      Navigator.pushNamedAndRemoveUntil(context,'/',(_) => false);
                     });
                   },
-                  items: bla,
+                  items: languageItems,
                 ),
               ],
             ),

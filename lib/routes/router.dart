@@ -25,6 +25,7 @@ buildRouter() => nyCreateRoutes((router) {
       router.route(
           '/',
           (context) => SubPage(
+                isHomeScreen: true,
                 title: getEnv('APP_NAME'),
                 child: MyHomePage(),
               ),

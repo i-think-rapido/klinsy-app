@@ -8,6 +8,7 @@ class HomeController extends Controller {
 
   @override
   construct(BuildContext context) {
+    this.context = context;
   }
 
   onTapShowTodos() {

@@ -4,8 +4,9 @@ import 'package:flutter/material.dart';
 class SubPage extends StatelessWidget {
   final String title;
   final Widget child;
+  final bool isHomeScreen;
 
-  SubPage({Key? key, required this.title, required this.child})
+  SubPage({Key? key, required this.title, required this.child, this.isHomeScreen = false, })
       : super(key: key);
 
   @override
@@ -14,7 +15,7 @@ class SubPage extends StatelessWidget {
       appBar: AppBar(
         title: Text(title),
         centerTitle: true,
-        leading: IconButton(
+        leading: isHomeScreen ? null : IconButton(
             onPressed: () {
               Navigator.pop(context);
             },

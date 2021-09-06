@@ -1,3 +1,4 @@
+import 'package:Klinsy/app/services/settings_service.dart';
 import 'package:Klinsy/resources/themes/dark_theme.dart';
 import 'package:Klinsy/resources/themes/light_theme.dart';
 import 'package:Klinsy/routes/router.dart';
@@ -16,7 +17,7 @@ void main() async {
   final AppTheme appTheme = AppTheme();
 
   Nylo nylo = await initNylo(theme: lightTheme(appTheme), router: buildRouter());
-  AppLocale.instance.locale = Locale('en', 'US');
+  AppLocale.instance.locale = SettingsService().locale;
 
   CameraService();
 

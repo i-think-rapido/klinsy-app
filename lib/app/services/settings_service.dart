@@ -6,19 +6,25 @@ import '../models/task_model.dart';
 
 typedef TasksFound = Iterable<ITask>;
 
-const _REMINDER_TIME_HOUR = '_REMINDER_TIME_HOUR';
-const _REMINDER_TIME_MINUTE = '_REMINDER_TIME_MINUTE';
+const _REMINDER_TIME_HOUR = 'com.jellobird.klinsy._REMINDER_TIME_HOUR';
+const _REMINDER_TIME_MINUTE = 'com.jellobird.klinsy._REMINDER_TIME_MINUTE';
+const _LOCALE = 'com.jellobird.klinsy._LOCALE';
 
 class SettingsService {
 
   int _reminderTimeHour = 9;
   int _reminderTimeMinute = 0;
+  Locale _locale = Locale('en', 'US');
 
 
   // Singleton
   SettingsService._privateConstructor() {
-    NyStorage.read(_REMINDER_TIME_HOUR).then((value) { if (value != null) { _reminderTimeHour = value; } });
-    NyStorage.read(_REMINDER_TIME_MINUTE).then((value) { if (value != null) { _reminderTimeMinute = value; } });
+    NyStorage.read(_REMINDER_TIME_HOUR).then((value) => _reminderTimeHour = value ?? _reminderTimeHour);
+    NyStorage.read(_REMINDER_TIME_MINUTE).then((value) => _reminderTimeMinute = value ?? _reminderTimeMinute);
+    NyStorage.read(_LOCALE).then((value) => _locale = value ?? _locale);
+    NyStorage.store(_REMINDER_TIME_HOUR, _reminderTimeHour);
+    NyStorage.store(_REMINDER_TIME_MINUTE, _reminderTimeMinute);
+    NyStorage.store(_LOCALE, locale);
   }
   static final SettingsService _instance = SettingsService._privateConstructor();
   factory SettingsService() {
@@ -31,11 +37,16 @@ class SettingsService {
   set reminderTime(TimeOfDay value) {
     _reminderTimeHour = value.hour;
     _reminderTimeMinute = value.minute;
-    _reminderTimeSave();
-  }
-  void _reminderTimeSave() {
     NyStorage.store(_REMINDER_TIME_HOUR, _reminderTimeHour);
     NyStorage.store(_REMINDER_TIME_MINUTE, _reminderTimeMinute);
+  }
+
+  Locale get locale {
+    return _locale;
+  }
+  set locale(Locale locale) {
+    _locale = locale;
+    NyStorage.store(_LOCALE, locale);
   }
 
 }
