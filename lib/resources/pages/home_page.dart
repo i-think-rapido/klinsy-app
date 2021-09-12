@@ -1,4 +1,5 @@
 import 'package:Klinsy/app/controllers/home_controller.dart';
+import 'package:Klinsy/app/services/settings_service.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:nylo_support/helpers/helper.dart';

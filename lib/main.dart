@@ -17,17 +17,19 @@ void main() async {
   final AppTheme appTheme = AppTheme();
 
   Nylo nylo = await initNylo(theme: lightTheme(appTheme), router: buildRouter());
-  AppLocale.instance.locale = SettingsService().locale;
 
   CameraService();
 
-  runApp(
-    AppBuild(
-      navigatorKey: nylo.router!.navigatorKey,
-      onGenerateRoute: nylo.router!.generator(),
-      themeData: CurrentTheme.instance.theme!,
-      darkTheme: darkTheme(appTheme),
-      locale: AppLocale.instance.locale,
-    ),
-  );
+  SettingsService().initLocale((Locale locale) {
+    AppLocale.instance.locale = locale;
+    runApp(
+      AppBuild(
+        navigatorKey: nylo.router!.navigatorKey,
+        onGenerateRoute: nylo.router!.generator(),
+        themeData: CurrentTheme.instance.theme!,
+        darkTheme: darkTheme(appTheme),
+        locale: AppLocale.instance.locale,
+      ),
+    );
+  });
 }

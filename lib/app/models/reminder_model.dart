@@ -63,10 +63,6 @@ abstract class IReminder {
     int m = months % 12;
     int y = months ~/ 12;
     m += 1;
-    if (m == 12) {
-      y += 1;
-      m = 1;
-    }
     y = date.year + y;
     date = DateTime.utc(y, m, date.day, date.hour, date.minute);
     return date;
