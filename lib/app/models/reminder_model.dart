@@ -48,7 +48,7 @@ abstract class IReminder {
 
   DateTime getTodayAlertDateTime(ITask task) {
     var now = DateTime.now();
-    var date = DateTime.utc(now.year, now.month, now.day);//, task.timeOfDay.hour, task.timeOfDay.minute);
+    var date = DateTime.utc(now.year, now.month, now.day, task.timeOfDay.hour, task.timeOfDay.minute);
     return date;
   }
 
@@ -62,13 +62,12 @@ abstract class IReminder {
     months = date.month + months - 1;
     int m = months % 12;
     int y = months ~/ 12;
-    if (m == 0) {
-      y -= 1;
-      m = 12;
+    m += 1;
+    if (m == 12) {
+      y += 1;
+      m = 1;
     }
-    else {
-      m += 1;
-    }
+    y = date.year + y;
     date = DateTime.utc(y, m, date.day, date.hour, date.minute);
     return date;
   }
