@@ -55,6 +55,7 @@ abstract class IReminder {
   void addDuration(ITask task, Duration duration) {
     var alert = getTodayAlertDateTime(task);
     alert = alert.add(duration);
+    alert = setTime(alert, task);
     task.alert = alert;
   }
 
@@ -66,6 +67,10 @@ abstract class IReminder {
     y = date.year + y;
     date = DateTime.utc(y, m, date.day, date.hour, date.minute);
     return date;
+  }
+
+  DateTime setTime(DateTime date, ITask task) {
+    return DateTime.utc(date.year, date.month, date.day, task.timeOfDay.hour, task.timeOfDay.minute);
   }
 
   factory IReminder.fromJson(JsonMap json) => _IReminder.fromJson(json);
@@ -178,6 +183,7 @@ class MonthsReminder extends IReminder {
   void setNewAlarm(ITask task) {
     var alert = getTodayAlertDateTime(task);
     var date = addMonths(alert, months);
+    date = setTime(date, task);
     task.alert = date;
   }
 
@@ -203,6 +209,7 @@ class UltimoReminder extends IReminder {
     var alert = getTodayAlertDateTime(task);
     var date = addMonths(alert, 1);
     date = DateTime.utc(date.year, date.month).add(Duration(days: -1));
+    date = setTime(date, task);
     task.alert = date;
   }
 

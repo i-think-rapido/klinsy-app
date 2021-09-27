@@ -11,6 +11,8 @@ import 'package:flutter/material.dart';
 import 'package:nylo_support/helpers/helper.dart';
 import 'package:nylo_support/widgets/ny_state.dart';
 import 'package:nylo_support/widgets/ny_stateful_widget.dart';
+import 'package:gallery_saver/gallery_saver.dart';
+import 'package:image_picker/image_picker.dart';
 
 class TaskEditWidget extends NyStatefulWidget {
   TaskEditWidget() : super(controller: TaskEditController());
@@ -89,14 +91,19 @@ class TaskEditWidgetState extends NyState<TaskEditWidget> {
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: <Widget>[
                     IconButton(
-                      onPressed: () {
-                        Navigator.of(context)
-                            .pushNamed("/camera")
-                            .then((value) => setState(() {
-                                  setTask(task(context).change(
-                                    picturePath: (value as String?)!,
-                                  ));
-                                }));
+                      onPressed: () async {
+                        final XFile? image = await ImagePicker().pickImage(source: ImageSource.camera);
+                        if (image != null) {
+                          GallerySaver.saveImage(image.path).then((hasBeenSaved) {
+                            if (hasBeenSaved ?? false) {
+                              setState(() {
+                                setTask(task(context).change(
+                                  picturePath: image.path,
+                                ));
+                              });
+                            }
+                          });
+                        }
                       },
                       icon: Icon(
                         Icons.camera_alt,

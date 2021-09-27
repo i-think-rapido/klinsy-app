@@ -2,6 +2,7 @@ import 'package:Klinsy/app/models/reminder_model.dart';
 import 'package:Klinsy/resources/widgets/task_edit_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
+import 'package:nylo_support/helpers/helper.dart';
 import 'package:nylo_support/widgets/ny_state.dart';
 import 'package:nylo_support/widgets/ny_stateful_widget.dart';
 
@@ -35,7 +36,7 @@ class _ReminderWidgetState extends NyState<ReminderWidget> {
           },
           items: reminderMapText.keys
               .map((e) =>
-                  DropdownMenuItem(value: e, child: Text(reminderMapText[e]!)))
+                  DropdownMenuItem(value: e, child: Text(trans(context, reminderMapText[e]!)!)))
               .toList(),
         ),
         _determineReminderWidget(

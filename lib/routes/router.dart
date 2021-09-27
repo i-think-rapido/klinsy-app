@@ -3,7 +3,6 @@ import 'package:Klinsy/resources/pages/sub_page.dart';
 import 'package:Klinsy/resources/widgets/active_widget.dart';
 import 'package:Klinsy/resources/widgets/archived_widget.dart';
 import 'package:Klinsy/resources/widgets/settings_widget.dart';
-import 'package:Klinsy/resources/widgets/take_picture_screen.dart';
 import 'package:Klinsy/resources/widgets/task_edit_widget.dart';
 import 'package:Klinsy/resources/widgets/todos_widget.dart';
 import 'package:nylo_support/helpers/helper.dart';
@@ -80,6 +79,4 @@ buildRouter() => nyCreateRoutes((router) {
               ),
           transition: PageTransitionType.fade);
 
-      router.route('/camera', (context) => TakePictureScreen(),
-          transition: PageTransitionType.fade);
     });
