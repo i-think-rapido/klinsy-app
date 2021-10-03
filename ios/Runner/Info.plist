@@ -41,5 +41,9 @@
 	</array>
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<false/>
+	<key>NSCameraUsageDescription</key>
+    	<string>To take pictures of hints of your recurring tasks.</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>Taken picture should be stored in photo library</string>
 </dict>
 </plist>
