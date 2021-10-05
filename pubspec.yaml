@@ -74,6 +74,7 @@ flutter:
     - public/assets/images/no-photo.png
     - lang/en.json
     - lang/de.json
+    - lang/sr.json
     - .env
     - pubspec.yaml
   #   - images/a_dot_ham.jpeg

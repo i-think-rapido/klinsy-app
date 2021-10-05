@@ -6,5 +6,6 @@ supportedLocalesMap(context) {
   return {
     Locale('en', 'US'): 'English',
     Locale('de', 'DE'): 'German',
+    Locale('sr', 'CS'): 'Serbian',
   };
 }

@@ -7,6 +7,7 @@ import 'package:Klinsy/app/models/task_model.dart';
 import 'package:Klinsy/app/services/camera_service.dart';
 import 'package:Klinsy/app/services/task_service.dart';
 import 'package:Klinsy/resources/widgets/reminder_widget.dart';
+import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
 import 'package:nylo_support/helpers/helper.dart';
 import 'package:nylo_support/widgets/ny_state.dart';
