@@ -46,19 +46,6 @@ abstract class IReminder {
 
   void setNewAlarm(ITask task);
 
-  DateTime getTodayAlertDateTime(ITask task) {
-    var now = DateTime.now();
-    var date = DateTime.utc(now.year, now.month, now.day, task.timeOfDay.hour, task.timeOfDay.minute);
-    return date;
-  }
-
-  void addDuration(ITask task, Duration duration) {
-    var alert = getTodayAlertDateTime(task);
-    alert = alert.add(duration);
-    alert = setTime(alert, task);
-    task.alert = alert;
-  }
-
   DateTime addMonths(DateTime date, int months) {
     months = date.month + months - 1;
     int m = months % 12;
@@ -133,7 +120,9 @@ class DaysReminder extends IReminder {
 
   @override
   void setNewAlarm(ITask task) {
-    addDuration(task, Duration(days: days,));
+    var date = task.alert.add(Duration(days: days,));
+    date = setTime(date, task);
+    task.alert = date;
   }
 
   const DaysReminder({ required this.days }) :
@@ -157,7 +146,9 @@ class WeeksReminder extends IReminder {
 
   @override
   void setNewAlarm(ITask task) {
-    addDuration(task, Duration(days: weeks * 7));
+    var date = task.alert.add(Duration(days: weeks * 7));
+    date = setTime(date, task);
+    task.alert = date;
   }
 
   const WeeksReminder({ required this.weeks }) :
@@ -181,7 +172,7 @@ class MonthsReminder extends IReminder {
 
   @override
   void setNewAlarm(ITask task) {
-    var alert = getTodayAlertDateTime(task);
+    var alert = DateTime.now();
     var date = addMonths(alert, months);
     date = setTime(date, task);
     task.alert = date;
@@ -206,7 +197,8 @@ class UltimoReminder extends IReminder {
 
   @override
   void setNewAlarm(ITask task) {
-    var alert = getTodayAlertDateTime(task);
+    var alert = DateTime.now();
+    alert = alert.add(Duration(days: 1));
     var date = addMonths(alert, 1);
     date = DateTime.utc(date.year, date.month).add(Duration(days: -1));
     date = setTime(date, task);
