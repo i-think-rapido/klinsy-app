@@ -13,6 +13,26 @@ The idea for this project came up, when I discussed the challenges I have as an 
 
 This project is open source and MIT-licenced, we welcome any contributions.
 
+<div style="text-align: center;">
+<div style="display: inline-block; border: 1px solid red; padding: 0">
+<p><a href='https://play.google.com/store/apps/details?id=com.jellobird.klinsy'><img style="width: 150px;" alt='Get it on Google Play' src='docs/images/badge-android.png'/></a></p>
+
+<p><a href='https://play.google.com/store/apps/details?id=com.jellobird.klinsy'><img src="docs/images/qr-android-app.jpeg"/></a></p>
+</div>
+
+<div style="display: inline-block; width: 150px;"></div>
+
+<div style="display: inline-block; border: 1px solid red;">
+<p><a href="https://apps.apple.com/de/app/klinsy/id1587837867"><img style="margin: 9px;" alt="Get it on App Store" src="docs/images/badge-ios.png"/></p>
+
+<p><a href="https://apps.apple.com/de/app/klinsy/id1587837867"><img src="docs/images//qr-ios-app.jpeg"></a></p>
+</div>
+</div>
+
+
+
+
+
 ---
 
 ## Features
