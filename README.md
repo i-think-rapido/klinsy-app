@@ -5,7 +5,7 @@
   <a href="#"><img alt="GitHub stars" src="https://img.shields.io/github/stars/i-think-rapido/klinsy-app?style=plastic"></a>
 </p>
 
-## Klinsy - The Recurring Tasks Manager (v1.0.0+3)
+## Klinsy - The Recurring Tasks Manager (v1.2.0+10)
 
 Klinsy is a recurring tasks manager. It helps people of all kind which have challenges in keeping things done that are recurring by their nature, for instance, emptying their trash bin, cleaning up the mess after a meal, or at least remind them to prepare and have a meal at all.
 
@@ -48,6 +48,8 @@ or fork and provide pull requests.
 
 ## Credits
 * [Romeo Disca](https://github.com/thinkrapido)
+* Translations:
+  * Serbian: Aca Kostić
 
 The name Klinsy is derived by the nickname of [Jürgen Klinsmann](https://en.wikipedia.org/wiki/J%C3%BCrgen_Klinsmann) former football player and trainer of the [German national football team](https://en.wikipedia.org/wiki/Germany_national_football_team) and the [U.S. national soccer Team](https://en.wikipedia.org/wiki/United_States_men%27s_national_soccer_team). His nickname has been given to him by the media during his time at the [Tottenham Hotspurs](https://en.wikipedia.org/wiki/Tottenham_Hotspur_F.C.).
 
