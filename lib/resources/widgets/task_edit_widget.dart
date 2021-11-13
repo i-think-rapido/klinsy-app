@@ -14,6 +14,8 @@ import 'package:nylo_support/widgets/ny_state.dart';
 import 'package:nylo_support/widgets/ny_stateful_widget.dart';
 import 'package:gallery_saver/gallery_saver.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:path/path.dart' as p;
+import 'package:path_provider/path_provider.dart';
 
 class TaskEditWidget extends NyStatefulWidget {
   TaskEditWidget() : super(controller: TaskEditController());
@@ -95,15 +97,25 @@ class TaskEditWidgetState extends NyState<TaskEditWidget> {
                       onPressed: () async {
                         final XFile? image = await ImagePicker().pickImage(source: ImageSource.camera);
                         if (image != null) {
-                          GallerySaver.saveImage(image.path).then((hasBeenSaved) {
-                            if (hasBeenSaved ?? false) {
-                              setState(() {
-                                setTask(task(context).change(
-                                  picturePath: image.path,
-                                ));
-                              });
-                            }
+                          final base = p.basename(image.path);
+                          final destinationFolder = await getApplicationDocumentsDirectory();
+                          final imageFolder = await Directory(p.join(destinationFolder.path, 'images')).create(recursive: true);
+                          final filename = p.join(imageFolder.path, base);
+                          await image.saveTo(filename);
+                          setState(() {
+                            setTask(task(context).change(
+                              picturePath: filename,
+                            ));
                           });
+                          // GallerySaver.saveImage(image.path).then((hasBeenSaved) {
+                          //   if (hasBeenSaved ?? false) {
+                          //     setState(() {
+                          //       setTask(task(context).change(
+                          //         picturePath: image.path,
+                          //       ));
+                          //     });
+                          //   }
+                          // });
                         }
                       },
                       icon: Icon(

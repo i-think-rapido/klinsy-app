@@ -1,9 +1,11 @@
+import 'dart:io';
 import 'dart:math';
 
 import 'package:Klinsy/app/services/task_service.dart';
 import 'package:flutter/material.dart';
 import 'package:json_annotation/json_annotation.dart';
 import 'package:uuid/uuid.dart';
+import 'package:path/path.dart' as p;
 
 import './reminder_model.dart';
 
@@ -81,6 +83,13 @@ abstract class ITask {
   ITask clone();
 
   ITask change({String? title, bool? isArchived, TimeOfDay? timeOfDay, DateTime? alert, IReminder? reminder, String? picturePath, });
+
+  Future<void> deleteImage() async {
+    File file = File(picturePath);
+    if (await file.exists()) {
+      await file.delete();
+    }
+  }
 }
 
 class Task extends ITask {

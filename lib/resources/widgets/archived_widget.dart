@@ -58,7 +58,7 @@ class _ArchivedWidgetState extends NyState<ArchivedWidget> {
   }
 
   void dismissItem(BuildContext context, int index, DismissDirection direction) {
-    setState(() {
+    setState(() async {
       final task = tasks.removeAt(index);
       switch(direction) {
         case DismissDirection.startToEnd:
@@ -69,6 +69,7 @@ class _ArchivedWidgetState extends NyState<ArchivedWidget> {
           break;
         case DismissDirection.endToStart:
           TaskService().delete(task);
+          await task.deleteImage();
           ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(trans(context, 'Task deleted...')!)));
           break;
       }
