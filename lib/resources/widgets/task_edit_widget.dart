@@ -102,20 +102,12 @@ class TaskEditWidgetState extends NyState<TaskEditWidget> {
                           final imageFolder = await Directory(p.join(destinationFolder.path, 'images')).create(recursive: true);
                           final filename = p.join(imageFolder.path, base);
                           await image.saveTo(filename);
+                          File(image.path).delete();
                           setState(() {
                             setTask(task(context).change(
                               picturePath: filename,
                             ));
                           });
-                          // GallerySaver.saveImage(image.path).then((hasBeenSaved) {
-                          //   if (hasBeenSaved ?? false) {
-                          //     setState(() {
-                          //       setTask(task(context).change(
-                          //         picturePath: image.path,
-                          //       ));
-                          //     });
-                          //   }
-                          // });
                         }
                       },
                       icon: Icon(
