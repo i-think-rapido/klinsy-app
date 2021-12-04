@@ -1,5 +1,4 @@
 
-import 'package:flutter/material.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 import 'task_model.dart';
@@ -120,7 +119,8 @@ class DaysReminder extends IReminder {
 
   @override
   void setNewAlarm(ITask task) {
-    var date = task.alert.add(Duration(days: days,));
+    var alert = DateTime.now();
+    var date = alert.add(Duration(days: days,));
     date = setTime(date, task);
     task.alert = date;
   }
@@ -146,7 +146,8 @@ class WeeksReminder extends IReminder {
 
   @override
   void setNewAlarm(ITask task) {
-    var date = task.alert.add(Duration(days: weeks * 7));
+    var alert = DateTime.now();
+    var date = alert.add(Duration(days: weeks * 7));
     date = setTime(date, task);
     task.alert = date;
   }
