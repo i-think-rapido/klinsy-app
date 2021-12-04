@@ -5,7 +5,7 @@
   <a href="#"><img alt="GitHub stars" src="https://img.shields.io/github/stars/i-think-rapido/klinsy-app?style=plastic"></a>
 </p>
 
-## Klinsy - The Recurring Tasks Manager (v1.2.1+11)
+## Klinsy - The Recurring Tasks Manager (v1.2.2+12)
 
 Klinsy is a recurring tasks manager. It helps people of all kind which have challenges in keeping things done that are recurring by their nature, for instance, emptying their trash bin, cleaning up the mess after a meal, or at least remind them to prepare and have a meal at all.
 
